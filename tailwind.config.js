@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        xs: '420px',
+      },
       fontFamily: {
         serif: ['Italiana', 'Cinzel', 'Playfair Display', 'serif'],
         cinzel: ['Cinzel', 'serif'],

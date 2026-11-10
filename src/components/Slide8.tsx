@@ -61,14 +61,14 @@ export const Slide8: React.FC = () => {
         </p>
 
         {/* 3. Wax Seal Badge with "T & Z" */}
-        <div className="relative w-13 h-13 xs:w-15 xs:h-15 sm:w-17 sm:h-17 md:w-20 md:h-20 my-1 sm:my-1.5 transition-transform duration-500 hover:scale-105">
+        <div className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 my-1 sm:my-1.5 transition-transform duration-500 hover:scale-105">
           <img
             src="/media/Seal-Badge.webp"
             alt="Royal Wax Seal"
             className="w-full h-full object-contain filter drop-shadow-[0_4px_10px_rgba(90,15,25,0.4)] pointer-events-none select-none"
           />
           <div className="absolute inset-0 flex items-center justify-center pb-0.5">
-            <span className="font-cinzel font-bold text-[11px] xs:text-xs sm:text-sm md:text-base text-[#fff6e6] tracking-wider drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] select-none">
+            <span className="font-cinzel font-bold text-[10px] sm:text-xs md:text-sm text-[#fff6e6] tracking-wider drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] select-none">
               T &amp; Z
             </span>
           </div>

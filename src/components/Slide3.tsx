@@ -115,6 +115,14 @@ export const Slide3: React.FC = () => {
             <h3 className="font-italiana text-4xl sm:text-5xl md:text-6xl text-[#4e1220] tracking-wide mb-1 drop-shadow-sm">
               Taha
             </h3>
+            <p
+              className={`font-serif italic text-[11px] sm:text-[12px] text-[#7d2f3f] tracking-wide mt-1.5 sm:mt-2 transition-all duration-1000 ease-out}`}
+            >
+              Son of
+            </p>
+            <span className="text-[11px] sm:text-[12px] text-[#7d2f3f] tracking-wide mt-1.5 sm:mt-2">
+              Masuma & Mohammad Quettawala
+            </span>
           </div>
 
           {/* Center Vertical Divider with Mandala Pendant */}
@@ -143,6 +151,14 @@ export const Slide3: React.FC = () => {
             <h3 className="font-italiana text-4xl sm:text-5xl md:text-6xl text-[#4e1220] tracking-wide mb-1 drop-shadow-sm">
               Zainab
             </h3>
+            <p
+              className={`font-serif italic text-[11px] sm:text-[12px] text-[#7d2f3f] tracking-wide mt-1.5 sm:mt-2 transition-all duration-1000 ease-out}`}
+            >
+              Daughter of
+            </p>
+            <span className="text-[11px] sm:text-[12px] text-[#7d2f3f] tracking-wide mt-1.5 sm:mt-2">
+              Rashida & Najmuddin Tinwala
+            </span>
           </div>
         </div>
 

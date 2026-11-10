@@ -248,11 +248,23 @@ export const Slide7: React.FC = () => {
     <section
       id="slide7"
       ref={sectionRef}
-      className="relative w-full overflow-hidden select-none"
+      className="relative w-full overflow-hidden select-none bg-[#FAF2E6]"
     >
+      {/* ── Background: couple-bg.webp ── */}
+      <picture className="absolute inset-0 w-full h-full pointer-events-none select-none z-0">
+        <img
+          src="/media/couple-bg.webp"
+          alt="Palace Backdrop"
+          className="w-full h-full object-cover object-center"
+        />
+      </picture>
+
+      {/* Soft overlay for legibility */}
+      <div className="absolute inset-0 bg-[#FAF2E6]/60 backdrop-blur-[1px] pointer-events-none z-0" aria-hidden="true" />
+
       {/* ── Top pattern border ── */}
       <div
-        className="w-full h-[48px] sm:h-[64px] pointer-events-none"
+        className="relative z-10 w-full h-[48px] sm:h-[64px] pointer-events-none"
         style={{
           backgroundImage: "url('/media/pattern.webp')",
           backgroundRepeat: 'repeat-x',
@@ -263,18 +275,7 @@ export const Slide7: React.FC = () => {
       />
 
       {/* ── Main content area ── */}
-      <div
-        className="relative w-full py-10 sm:py-14 px-4"
-        style={{
-          backgroundColor: "#FAF2E6",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed',
-        }}
-      >
-        {/* Overlay for readability */}
-        <div className="absolute inset-0 bg-[#FAF2E6]/60 backdrop-blur-[1px]" aria-hidden="true" />
-
+      <div className="relative z-10 w-full py-10 sm:py-14 px-4">
         {/* ── Fade-in wrapper ── */}
         <div
           className={`relative z-10 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
@@ -285,7 +286,7 @@ export const Slide7: React.FC = () => {
             <p className="font-script text-2xl sm:text-3xl text-[#d4a853] drop-shadow mb-1">
               Kindly Respond
             </p>
-            <h2 className="font-cinzel text-2xl sm:text-3xl md:text-4xl font-semibold tracking-wide drop-shadow-lg">
+            <h2 className="font-cinzel text-2xl sm:text-3xl md:text-4xl font-semibold tracking-wide drop-shadow-lg text-[#6b1d2e]">
               Will You Be Joining Us?
             </h2>
             <p className="mt-2 font-cormorant italic text-sm sm:text-base text-[#531319] tracking-wider">
@@ -645,7 +646,7 @@ export const Slide7: React.FC = () => {
 
       {/* ── Bottom pattern border ── */}
       <div
-        className="w-full h-[48px] sm:h-[64px] pointer-events-none"
+        className="relative z-10 w-full h-[48px] sm:h-[64px] pointer-events-none"
         style={{
           backgroundImage: "url('/media/pattern.webp')",
           backgroundRepeat: 'repeat-x',

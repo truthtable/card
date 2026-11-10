@@ -127,7 +127,7 @@ export const Slide2: React.FC = () => {
               >
                 Bismillahir Rahmanir Raheem
               </p>
-
+              <span className='mt-[10px]'>Masuma & Mohammad Quettawala</span>
               {/* Cordially Request Invitation Text */}
               <p
                 className={`font-serif italic font-normal text-[12px] sm:text-[13.5px] md:text-[14.5px] text-[#6d2535] leading-relaxed max-w-[290px] sm:max-w-[340px] mt-3 sm:mt-4 transition-all duration-1000 ease-out ${isOpen
@@ -180,6 +180,9 @@ export const Slide2: React.FC = () => {
               >
                 Daughter of
               </p>
+              <span>
+                Rashida & Najmuddin Tinwala
+              </span>
             </div>
 
             {/* Bottom Group: Wax Seal Badge (Seal-Badge.webp) */}
@@ -189,7 +192,7 @@ export const Slide2: React.FC = () => {
                 : 'opacity-0 scale-150 rotate-12'
                 }`}
             >
-              <div className="w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 mx-auto">
+              <div className="w-11 h-11 sm:w-12 sm:h-12 md:w-14 md:h-14 mx-auto">
                 <img
                   src="/media/Seal-Badge.webp"
                   alt="Royal Wax Seal"

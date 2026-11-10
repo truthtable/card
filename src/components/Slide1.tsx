@@ -58,7 +58,7 @@ export const Slide1: React.FC = () => {
           </h1>
 
           {/* Ampersand */}
-          <span className="anim-text-ampersand font-serif italic font-light text-3xl sm:text-4xl md:text-5xl text-[#b5812d] drop-shadow-sm my-0 sm:my-1 will-change-transform">
+          <span className="anim-text-ampersand font-light text-3xl sm:text-4xl md:text-5xl text-[#b5812d] drop-shadow-sm my-0 sm:my-1 will-change-transform">
             &
           </span>
 
