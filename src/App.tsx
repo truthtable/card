@@ -19,6 +19,7 @@ export const App: React.FC = () => {
   const [slide0Finished, setSlide0Finished] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const lenisRef = useRef<Lenis | null>(null);
+  const userPausedRef = useRef(false);
 
   // Hash-based routing: #/dashboard
   const [route, setRoute] = useState(() => window.location.hash);
@@ -27,6 +28,48 @@ export const App: React.FC = () => {
     window.addEventListener('hashchange', onHash);
     return () => window.removeEventListener('hashchange', onHash);
   }, []);
+
+  // Auto-play site audio initially and on first user interaction
+  useEffect(() => {
+    if (route === '#/dashboard') return;
+
+    const playSiteAudio = () => {
+      if (!userPausedRef.current && audioRef.current && audioRef.current.paused) {
+        audioRef.current.play().then(() => {
+          setIsPlaying(true);
+        }).catch(() => {
+          // Browser blocked unmuted autoplay until interaction
+        });
+      }
+    };
+
+    // Attempt playback immediately
+    playSiteAudio();
+
+    // Browser interaction fallback
+    const onInteraction = () => {
+      playSiteAudio();
+    };
+
+    window.addEventListener('click', onInteraction, { passive: true });
+    window.addEventListener('touchstart', onInteraction, { passive: true });
+    window.addEventListener('keydown', onInteraction, { passive: true });
+
+    return () => {
+      window.removeEventListener('click', onInteraction);
+      window.removeEventListener('touchstart', onInteraction);
+      window.removeEventListener('keydown', onInteraction);
+    };
+  }, [route]);
+
+  // Ensure audio plays when Slide0 finishes
+  useEffect(() => {
+    if (slide0Finished && !userPausedRef.current && audioRef.current && audioRef.current.paused) {
+      audioRef.current.play().then(() => {
+        setIsPlaying(true);
+      }).catch(() => {});
+    }
+  }, [slide0Finished]);
 
   // Initialize Lenis smooth inertial scrolling (only for main card)
   useEffect(() => {
@@ -81,7 +124,9 @@ export const App: React.FC = () => {
     if (isPlaying) {
       audioRef.current.pause();
       setIsPlaying(false);
+      userPausedRef.current = true;
     } else {
+      userPausedRef.current = false;
       audioRef.current.play().then(() => {
         setIsPlaying(true);
       }).catch(() => {

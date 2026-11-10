@@ -7,7 +7,7 @@ interface Slide0Props {
 
 export const Slide0: React.FC<Slide0Props> = ({ onFinish }) => {
   const [isFading, setIsFading] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -49,7 +49,7 @@ export const Slide0: React.FC<Slide0Props> = ({ onFinish }) => {
   };
 
   // Dedicated play trigger that handles browser autoplay restrictions
-  const playVideo = useCallback(async (withSound = false) => {
+  const playVideo = useCallback(async (withSound = true) => {
     const video = videoRef.current;
     if (!video) return;
 
@@ -60,7 +60,7 @@ export const Slide0: React.FC<Slide0Props> = ({ onFinish }) => {
       await video.play();
       setIsPlaying(true);
     } catch {
-      // If unmuted failed, strictly fallback to muted
+      // If unmuted failed due to browser policy, fallback to muted so visual playback starts
       try {
         video.muted = true;
         video.defaultMuted = true;
@@ -78,16 +78,25 @@ export const Slide0: React.FC<Slide0Props> = ({ onFinish }) => {
   const setVideoRef = useCallback((node: HTMLVideoElement | null) => {
     videoRef.current = node;
     if (node) {
-      // Force DOM properties that React JSX doesn't always sync in time
       node.muted = true;
-      node.defaultMuted = true;
+      node.defaultMuted = false;
       node.playsInline = true;
-      node.setAttribute('muted', '');
       node.setAttribute('playsinline', '');
       node.setAttribute('webkit-playsinline', '');
       node.play()
-        .then(() => setIsPlaying(true))
-        .catch(() => setIsPlaying(false));
+        .then(() => {
+          setIsPlaying(true);
+          setIsMuted(false);
+        })
+        .catch(() => {
+          // If browser rejects unmuted autoplay, start muted and listen for first tap to unmute
+          node.muted = true;
+          node.defaultMuted = true;
+          setIsMuted(true);
+          node.play()
+            .then(() => setIsPlaying(true))
+            .catch(() => setIsPlaying(false));
+        });
     }
   }, []);
 
@@ -98,7 +107,7 @@ export const Slide0: React.FC<Slide0Props> = ({ onFinish }) => {
 
     const onCanPlay = () => {
       if (video.paused && !finishTriggeredRef.current) {
-        playVideo(false);
+        playVideo(true);
       }
     };
 
@@ -106,15 +115,21 @@ export const Slide0: React.FC<Slide0Props> = ({ onFinish }) => {
     video.addEventListener('loadeddata', onCanPlay);
     video.addEventListener('playing', () => setIsPlaying(true));
 
-    // Global interaction fallback: first tap anywhere starts the video
+    // Global interaction fallback: tap/click anywhere unmutes and plays video
     const handleGlobalTap = () => {
-      if (video.paused && !finishTriggeredRef.current) {
-        playVideo(false);
+      if (video && !finishTriggeredRef.current) {
+        if (video.paused) {
+          playVideo(true);
+        } else if (video.muted) {
+          video.muted = false;
+          video.defaultMuted = false;
+          setIsMuted(false);
+        }
       }
     };
 
-    window.addEventListener('click', handleGlobalTap, { once: true, passive: true });
-    window.addEventListener('touchstart', handleGlobalTap, { once: true, passive: true });
+    window.addEventListener('click', handleGlobalTap, { passive: true });
+    window.addEventListener('touchstart', handleGlobalTap, { passive: true });
 
     return () => {
       video.removeEventListener('canplay', onCanPlay);
@@ -127,8 +142,14 @@ export const Slide0: React.FC<Slide0Props> = ({ onFinish }) => {
   // Click on container
   const handleContainerClick = () => {
     const video = videoRef.current;
-    if (video && video.paused) {
-      playVideo(false);
+    if (video) {
+      if (video.paused) {
+        playVideo(true);
+      } else if (video.muted) {
+        video.muted = false;
+        video.defaultMuted = false;
+        setIsMuted(false);
+      }
     }
   };
 
@@ -149,9 +170,8 @@ export const Slide0: React.FC<Slide0Props> = ({ onFinish }) => {
   return (
     <div
       onClick={handleContainerClick}
-      className={`fixed inset-0 z-50 w-full h-full bg-black overflow-hidden select-none transition-opacity duration-1000 ease-in-out ${
-        isFading ? 'opacity-0 pointer-events-none' : 'opacity-100'
-      }`}
+      className={`fixed inset-0 z-50 w-full h-full bg-black overflow-hidden select-none transition-opacity duration-1000 ease-in-out ${isFading ? 'opacity-0 pointer-events-none' : 'opacity-100'
+        }`}
     >
       {/* Edge-to-edge Fullscreen Video */}
       <video
@@ -159,7 +179,6 @@ export const Slide0: React.FC<Slide0Props> = ({ onFinish }) => {
         src="./media/Royal-Nikah-Video.mp4"
         playsInline
         autoPlay
-        muted
         preload="auto"
         onEnded={handleEnded}
         onTimeUpdate={handleTimeUpdate}
