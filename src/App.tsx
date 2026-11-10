@@ -9,6 +9,7 @@ import { Slide4 } from './components/Slide4';
 import { Slide5 } from './components/Slide5';
 import { Slide6 } from './components/Slide6';
 import { Slide7 } from './components/Slide7';
+import { Slide8 } from './components/Slide8';
 import { Dashboard } from './components/Dashboard';
 import { FloatingLanterns } from './components/FloatingLanterns';
 
@@ -88,6 +89,8 @@ export const App: React.FC = () => {
       <Slide6 />
       {/* Slide 7: RSVP Form */}
       <Slide7 />
+      {/* Slide 8: Blessed Presence & Grand Finale */}
+      <Slide8 />
 
       {/* Background Audio Player */}
       <audio
