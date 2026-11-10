@@ -57,17 +57,26 @@ export const Slide5: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const event1Ref = useRef<HTMLDivElement | null>(null);
   const event2Ref = useRef<HTMLDivElement | null>(null);
+  const dot1Ref = useRef<HTMLDivElement | null>(null);
+  const dot2Ref = useRef<HTMLDivElement | null>(null);
+  const carStartRef = useRef<HTMLDivElement | null>(null);
 
   // Scroll direction for car orientation (0deg = facing down, 180deg = facing up)
-  const [carRotation, setCarRotation] = useState<number>(0);
-  const [event1InView, setEvent1InView] = useState<boolean>(false);
-  const [event2InView, setEvent2InView] = useState<boolean>(false);
+  // Initially car faces top as requested (180deg)
+  const [carRotation, setCarRotation] = useState<number>(180);
+  const [carMode, setCarMode] = useState<'top' | 'fixed'>('top');
+  const [carViewportY, setCarViewportY] = useState<number>(400);
+  const [carOpacity, setCarOpacity] = useState<number>(0);
+
+  // Proportional reveal progress (0 = hidden, 1 = fully revealed when car arrives on dot)
+  const [progress1, setProgress1] = useState<number>(0);
+  const [progress2, setProgress2] = useState<number>(0);
 
   // Calendar Modal state
   const [activeEvent, setActiveEvent] = useState<EventItem | null>(null);
   const [copied, setCopied] = useState<boolean>(false);
 
-  // Scroll direction detection
+  // Scroll direction detection and center viewport car tracking
   useEffect(() => {
     let lastScrollY = window.scrollY;
     let ticking = false;
@@ -89,6 +98,59 @@ export const Slide5: React.FC = () => {
             }
             lastScrollY = currentScrollY;
           }
+
+          const centerY = window.innerHeight / 2;
+          const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+          const scrollRemaining = Math.max(0, maxScroll - window.scrollY);
+
+          // Fade in car gracefully as Slide 5 enters, completely hidden on Slide 4
+          if (sectionRef.current) {
+            const secTop = sectionRef.current.getBoundingClientRect().top;
+            const fadeInProgress = Math.max(0, Math.min(1, (window.innerHeight - secTop) / 350));
+            setCarOpacity(fadeInProgress);
+          }
+
+          // Calculate active car viewport Y:
+          // Normally centered at centerY. Near bottom of page, glides down to Dot 2
+          let activeCarY = centerY;
+          let dot2CenterY = Infinity;
+          if (dot2Ref.current) {
+            const d2 = dot2Ref.current.getBoundingClientRect();
+            dot2CenterY = d2.top + d2.height / 2;
+            if (scrollRemaining < 250 && dot2CenterY > centerY) {
+              const ratio = 1 - scrollRemaining / 250;
+              activeCarY = centerY + (dot2CenterY - centerY) * ratio;
+            }
+          }
+          setCarViewportY(activeCarY);
+
+          // Car mode: 'top' (above start anchor) or 'fixed'
+          const startRect = carStartRef.current?.getBoundingClientRect();
+          if (startRect && startRect.top > activeCarY) {
+            setCarMode('top');
+          } else {
+            setCarMode('fixed');
+          }
+
+          // Proportional reveal for Event 1
+          const TRAVEL_RANGE = 200;
+          if (dot1Ref.current) {
+            const r1 = dot1Ref.current.getBoundingClientRect();
+            const dot1CenterY = r1.top + r1.height / 2;
+            const raw1 = (activeCarY + TRAVEL_RANGE - dot1CenterY) / TRAVEL_RANGE;
+            const clamped1 = Math.max(0, Math.min(1, raw1));
+            const eased1 = clamped1 * clamped1 * (3 - 2 * clamped1);
+            setProgress1(eased1);
+          }
+
+          // Proportional reveal for Event 2
+          if (dot2Ref.current) {
+            const raw2 = (activeCarY + TRAVEL_RANGE - dot2CenterY) / TRAVEL_RANGE;
+            const clamped2 = Math.max(0, Math.min(1, raw2));
+            const eased2 = clamped2 * clamped2 * (3 - 2 * clamped2);
+            setProgress2(eased2);
+          }
+
           ticking = false;
         });
         ticking = true;
@@ -96,37 +158,11 @@ export const Slide5: React.FC = () => {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Intersection Observers for scroll reveals of Event 1 & Event 2
-  useEffect(() => {
-    const observer1 = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setEvent1InView(true);
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    const observer2 = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setEvent2InView(true);
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    if (event1Ref.current) observer1.observe(event1Ref.current);
-    if (event2Ref.current) observer2.observe(event2Ref.current);
-
-    return () => {
-      observer1.disconnect();
-      observer2.disconnect();
-    };
-  }, []);
 
   // Calendar handlers
   const handleGoogleCalendar = useCallback((event: EventItem) => {
@@ -195,7 +231,7 @@ export const Slide5: React.FC = () => {
     <section
       id="slide5"
       ref={sectionRef}
-      className="relative w-full min-h-[220vh] lg:min-h-[240vh] bg-[#fbf5eb] overflow-clip select-none"
+      className="relative w-full min-h-[140vh] sm:min-h-[150vh] bg-[#fbf5eb] select-none"
     >
       {/* Background: Repeating Perr Damask Tile Pattern */}
       <div
@@ -204,18 +240,6 @@ export const Slide5: React.FC = () => {
           backgroundImage: "url('/media/perr-tile-83d714.svg')",
           backgroundRepeat: 'repeat',
           backgroundSize: '128px auto',
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Top Grill Border */}
-      <div
-        className="absolute top-0 left-0 right-0 z-30 w-full h-[24px] sm:h-[32px] md:h-[40px] pointer-events-none select-none rotate-180"
-        style={{
-          backgroundImage: "url('/media/grild.webp')",
-          backgroundRepeat: 'repeat-x',
-          backgroundPosition: 'top center',
-          backgroundSize: 'auto 100%',
         }}
         aria-hidden="true"
       />
@@ -246,39 +270,53 @@ export const Slide5: React.FC = () => {
         <img src="/media/lantern-1.webp" alt="Lantern" className="w-full h-auto object-contain" />
       </div>
 
+      {/* Golden Timeline Start Anchor */}
+      <div
+        ref={carStartRef}
+        className="absolute top-[340px] sm:top-[380px] left-1/2 pointer-events-none"
+        aria-hidden="true"
+      />
+
       {/* Center Golden Timeline Vertical Line */}
       <div
-        className="absolute top-[170px] sm:top-[190px] bottom-[100px] left-1/2 -translate-x-1/2 w-[1.5px] bg-gradient-to-b from-[#dfbe78]/40 via-[#c99a4e] to-[#dfbe78]/40 z-10 pointer-events-none"
+        className="absolute top-[310px] sm:top-[340px] bottom-[100px] sm:bottom-[120px] left-1/2 -translate-x-1/2 w-[1.5px] bg-gradient-to-b from-[#dfbe78]/40 via-[#c99a4e] to-[#dfbe78]/40 z-10 pointer-events-none"
         aria-hidden="true"
       />
 
       {/* ========================================================= */}
-      {/* STICKY WEDDING CAR VIEWPORT CONTAINER                     */}
-      {/* Pinned to viewport center ONLY while user is in Slide 5  */}
+      {/* WEDDING CAR: Stays centered on timeline & reaches dots    */}
       {/* ========================================================= */}
-      <div className="sticky top-0 h-screen w-full pointer-events-none z-20 flex items-center justify-center overflow-hidden">
-        <div
-          className="relative flex items-center justify-center"
-          style={{
-            transform: `rotate(${carRotation}deg)`,
-            transition: 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
-          }}
-        >
-          <img
-            src="/media/Wedding-Car.webp"
-            alt="Royal Wedding Car"
-            className="w-[52px] xs:w-[62px] sm:w-[74px] md:w-[84px] lg:w-[94px] h-auto object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.32)] select-none pointer-events-none"
-          />
-        </div>
+      <div
+        className={`pointer-events-none z-20 flex items-center justify-center ${carMode === 'fixed'
+          ? 'fixed left-1/2'
+          : 'absolute top-[340px] sm:top-[380px] left-1/2'
+          }`}
+        style={{
+          top: carMode === 'fixed' ? `${carViewportY}px` : undefined,
+          transform: `translate(-50%, -50%) rotate(${carRotation}deg)`,
+          opacity: carOpacity,
+          transition: 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease-out',
+        }}
+      >
+        <img
+          src="/media/Wedding-Car.webp"
+          alt="Royal Wedding Car"
+          className="w-[52px] xs:w-[62px] sm:w-[74px] md:w-[84px] lg:w-[94px] h-auto object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.32)] select-none pointer-events-none"
+        />
       </div>
 
       {/* ========================================================= */}
-      {/* SLIDE CONTENT LAYER (Overlaid with negative top margin)    */}
+      {/* SLIDE CONTENT LAYER (Clean natural padding, no gap)       */}
       {/* ========================================================= */}
-      <div className="relative z-10 -mt-[100vh] w-full flex flex-col justify-between min-h-[220vh] lg:min-h-[240vh] pt-14 sm:pt-16 pb-20 px-3 sm:px-6">
-        
-        {/* Header Title Section */}
-        <div className="flex flex-col items-center text-center max-w-xl mx-auto px-4 mb-8 sm:mb-12">
+      <div className="relative z-10 w-full flex flex-col justify-between min-h-[120vh] sm:min-h-[130vh] pt-12 sm:pt-16 pb-14 sm:pb-20 px-3 sm:px-6">
+
+        {/* Header Title Section with generous clearance above the car */}
+        <div className="flex flex-col items-center text-center max-w-xl mx-auto px-4 mb-28 sm:mb-32 md:mb-36">
+          <div
+            style={{
+              height: "10px"
+            }}
+          />
           <p className="font-script text-2xl sm:text-3xl md:text-4xl text-[#bd9254] drop-shadow-sm mb-0.5">
             Celebrations
           </p>
@@ -290,9 +328,10 @@ export const Slide5: React.FC = () => {
           </p>
         </div>
 
-        {/* Timeline Events Track */}
-        <div className="flex-1 flex flex-col justify-around gap-28 sm:gap-36 md:gap-44 max-w-5xl mx-auto w-full my-auto">
-          
+
+        {/* Timeline Events Track: Compact travel distance between Event 1 and Event 2 */}
+        <div className="flex-1 flex flex-col justify-center gap-14 sm:gap-20 md:gap-24 max-w-5xl mx-auto w-full my-6 sm:my-10">
+
           {/* ========================================================= */}
           {/* EVENT 1 ROW: Frame on Left, Date 27 on Right             */}
           {/* ========================================================= */}
@@ -301,7 +340,14 @@ export const Slide5: React.FC = () => {
             className="relative w-full flex items-center justify-between"
           >
             {/* Center Golden Circle Node on Line */}
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none">
+            <div
+              ref={dot1Ref}
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none will-change-transform"
+              style={{
+                opacity: 0.35 + 0.65 * progress1,
+                transform: `translate(-50%, -50%) scale(${(0.75 + 0.25 * progress1).toFixed(3)})`,
+              }}
+            >
               <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 border-[#c99a4e] bg-[#fbf5eb] shadow-[0_0_8px_rgba(201,154,78,0.5)] flex items-center justify-center">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#9e6e29]" />
               </div>
@@ -309,9 +355,12 @@ export const Slide5: React.FC = () => {
 
             {/* Left Column: Event 1 Scroll Frame */}
             <div
-              className={`w-[48%] md:w-[45%] flex justify-end pr-3 sm:pr-8 md:pr-12 transition-all duration-1000 ease-out ${
-                event1InView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8 sm:-translate-x-14'
-              }`}
+              className="w-[48%] md:w-[45%] flex justify-end pr-3 sm:pr-8 md:pr-12 will-change-transform"
+              style={{
+                opacity: progress1,
+                transform: `translateX(${(-36 * (1 - progress1)).toFixed(1)}px) scale(${(0.94 + 0.06 * progress1).toFixed(3)})`,
+                pointerEvents: progress1 > 0.6 ? 'auto' : 'none',
+              }}
             >
               <div className="relative w-full max-w-[270px] xs:max-w-[310px] sm:max-w-[360px] md:max-w-[400px] lg:max-w-[430px] drop-shadow-[0_12px_28px_rgba(90,40,20,0.22)]">
                 {/* Frame Image */}
@@ -382,9 +431,11 @@ export const Slide5: React.FC = () => {
 
             {/* Right Column: Date 27 Display */}
             <div
-              className={`w-[48%] md:w-[45%] flex flex-col items-start justify-center pl-3 sm:pl-8 md:pl-12 transition-all duration-1000 ease-out delay-150 ${
-                event1InView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8 sm:translate-x-14'
-              }`}
+              className="w-[48%] md:w-[45%] flex flex-col items-start justify-center pl-3 sm:pl-8 md:pl-12 will-change-transform"
+              style={{
+                opacity: progress1,
+                transform: `translateX(${(36 * (1 - progress1)).toFixed(1)}px) scale(${(0.94 + 0.06 * progress1).toFixed(3)})`,
+              }}
             >
               <span className="font-cinzel text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-[100px] font-normal text-[#ad8248] tracking-tight leading-none drop-shadow-[0_2px_4px_rgba(173,130,72,0.18)]">
                 {EVENTS[0].dayNumber}
@@ -406,7 +457,14 @@ export const Slide5: React.FC = () => {
             className="relative w-full flex items-center justify-between"
           >
             {/* Center Golden Circle Node on Line */}
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none">
+            <div
+              ref={dot2Ref}
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none will-change-transform"
+              style={{
+                opacity: 0.35 + 0.65 * progress2,
+                transform: `translate(-50%, -50%) scale(${(0.75 + 0.25 * progress2).toFixed(3)})`,
+              }}
+            >
               <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 border-[#c99a4e] bg-[#fbf5eb] shadow-[0_0_8px_rgba(201,154,78,0.5)] flex items-center justify-center">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#9e6e29]" />
               </div>
@@ -414,9 +472,11 @@ export const Slide5: React.FC = () => {
 
             {/* Left Column: Date 28 Display */}
             <div
-              className={`w-[48%] md:w-[45%] flex flex-col items-end justify-center pr-3 sm:pr-8 md:pr-12 text-right transition-all duration-1000 ease-out ${
-                event2InView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8 sm:-translate-x-14'
-              }`}
+              className="w-[48%] md:w-[45%] flex flex-col items-end justify-center pr-3 sm:pr-8 md:pr-12 text-right will-change-transform"
+              style={{
+                opacity: progress2,
+                transform: `translateX(${(-36 * (1 - progress2)).toFixed(1)}px) scale(${(0.94 + 0.06 * progress2).toFixed(3)})`,
+              }}
             >
               <span className="font-cinzel text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-[100px] font-normal text-[#ad8248] tracking-tight leading-none drop-shadow-[0_2px_4px_rgba(173,130,72,0.18)]">
                 {EVENTS[1].dayNumber}
@@ -431,9 +491,12 @@ export const Slide5: React.FC = () => {
 
             {/* Right Column: Event 2 Scroll Frame */}
             <div
-              className={`w-[48%] md:w-[45%] flex justify-start pl-3 sm:pl-8 md:pl-12 transition-all duration-1000 ease-out delay-150 ${
-                event2InView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8 sm:translate-x-14'
-              }`}
+              className="w-[48%] md:w-[45%] flex justify-start pl-3 sm:pl-8 md:pl-12 will-change-transform"
+              style={{
+                opacity: progress2,
+                transform: `translateX(${(36 * (1 - progress2)).toFixed(1)}px) scale(${(0.94 + 0.06 * progress2).toFixed(3)})`,
+                pointerEvents: progress2 > 0.6 ? 'auto' : 'none',
+              }}
             >
               <div className="relative w-full max-w-[270px] xs:max-w-[310px] sm:max-w-[360px] md:max-w-[400px] lg:max-w-[430px] drop-shadow-[0_12px_28px_rgba(90,40,20,0.22)]">
                 {/* Frame Image */}
@@ -519,6 +582,7 @@ export const Slide5: React.FC = () => {
         >
           <div
             onClick={(e) => e.stopPropagation()}
+            data-lenis-prevent
             className="relative w-full max-w-md bg-[#faf2e6] border-2 border-[#d4aa5c] rounded-2xl shadow-[0_20px_45px_rgba(70,20,30,0.35)] overflow-hidden p-6 sm:p-7 text-[#4a1525]"
           >
             {/* Close Button */}

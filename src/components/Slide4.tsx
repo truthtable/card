@@ -532,6 +532,7 @@ export const Slide4: React.FC = () => {
             {/* Interactive Scratch Canvas Overlay */}
             <canvas
               ref={canvasRef}
+              data-lenis-prevent
               className={`absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing transition-opacity duration-700 touch-none ${
                 isRevealed ? 'opacity-0 pointer-events-none' : 'opacity-100 z-20'
               }`}
