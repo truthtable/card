@@ -3,6 +3,8 @@ import { Volume2, VolumeX } from 'lucide-react';
 import { Slide1 } from './components/Slide1';
 import { Slide2 } from './components/Slide2';
 import { Slide3 } from './components/Slide3';
+import { Slide4 } from './components/Slide4';
+import { Slide5 } from './components/Slide5';
 import { FloatingLanterns } from './components/FloatingLanterns';
 
 export const App: React.FC = () => {
@@ -34,6 +36,10 @@ export const App: React.FC = () => {
       <Slide2 />
       {/* Slide 3: Couple Nikah Details */}
       <Slide3 />
+      {/* Slide 4: Save The Date Scratch Card */}
+      <Slide4 />
+      {/* Slide 5: The Blessed Celebrations Timeline with Wedding Car */}
+      <Slide5 />
 
       {/* Background Audio Player */}
       <audio
