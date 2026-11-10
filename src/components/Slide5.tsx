@@ -100,26 +100,24 @@ export const Slide5: React.FC = () => {
           }
 
           const centerY = window.innerHeight / 2;
-          const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-          const scrollRemaining = Math.max(0, maxScroll - window.scrollY);
 
-          // Fade in car gracefully as Slide 5 enters, completely hidden on Slide 4
+          // Fade in car gracefully as Slide 5 enters, fade out smoothly as it exits
           if (sectionRef.current) {
-            const secTop = sectionRef.current.getBoundingClientRect().top;
-            const fadeInProgress = Math.max(0, Math.min(1, (window.innerHeight - secTop) / 350));
-            setCarOpacity(fadeInProgress);
+            const secRect = sectionRef.current.getBoundingClientRect();
+            const fadeInProgress = Math.max(0, Math.min(1, (window.innerHeight - secRect.top) / 350));
+            const fadeOutProgress = Math.max(0, Math.min(1, (secRect.bottom - centerY) / 250));
+            setCarOpacity(Math.min(fadeInProgress, fadeOutProgress));
           }
 
           // Calculate active car viewport Y:
-          // Normally centered at centerY. Near bottom of page, glides down to Dot 2
+          // Center-locked while traveling, parks cleanly on Dot 2 upon arrival
           let activeCarY = centerY;
           let dot2CenterY = Infinity;
           if (dot2Ref.current) {
             const d2 = dot2Ref.current.getBoundingClientRect();
             dot2CenterY = d2.top + d2.height / 2;
-            if (scrollRemaining < 250 && dot2CenterY > centerY) {
-              const ratio = 1 - scrollRemaining / 250;
-              activeCarY = centerY + (dot2CenterY - centerY) * ratio;
+            if (dot2CenterY <= centerY) {
+              activeCarY = dot2CenterY;
             }
           }
           setCarViewportY(activeCarY);

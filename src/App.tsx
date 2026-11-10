@@ -7,6 +7,7 @@ import { Slide2 } from './components/Slide2';
 import { Slide3 } from './components/Slide3';
 import { Slide4 } from './components/Slide4';
 import { Slide5 } from './components/Slide5';
+import { Slide6 } from './components/Slide6';
 import { FloatingLanterns } from './components/FloatingLanterns';
 
 export const App: React.FC = () => {
@@ -68,6 +69,8 @@ export const App: React.FC = () => {
       <Slide4 />
       {/* Slide 5: The Blessed Celebrations Timeline with Wedding Car */}
       <Slide5 />
+      {/* Slide 6: Heartfelt Duas & Presence Request */}
+      <Slide6 />
 
       {/* Background Audio Player */}
       <audio

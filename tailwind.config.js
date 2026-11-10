@@ -14,6 +14,7 @@ export default {
         cormorant: ['Cormorant Garamond', 'serif'],
         script: ['Great Vibes', 'cursive'],
         sans: ['Poppins', 'sans-serif'],
+        urdu: ['"Noto Nastaliq Urdu"', 'serif'],
       },
     },
   },
