@@ -30,7 +30,7 @@ export const Slide8: React.FC = () => {
       {/* ── Background: Reflecting Pool Palace ── */}
       <div className="absolute inset-0 w-full h-full pointer-events-none select-none z-0">
         <img
-          src="/media/Reflecting-Pool.webp"
+          src="./media/Reflecting-Pool.webp"
           alt="Reflecting Pool Palace"
           className="w-full h-full object-cover object-[center_35%] filter brightness-[1.02] contrast-[0.98] opacity-50"
         />
@@ -63,7 +63,7 @@ export const Slide8: React.FC = () => {
         {/* 3. Wax Seal Badge with "T & Z" */}
         <div className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 my-1 sm:my-1.5 transition-transform duration-500 hover:scale-105">
           <img
-            src="/media/Seal-Badge.webp"
+            src="./media/Seal-Badge.webp"
             alt="Royal Wax Seal"
             className="w-full h-full object-contain filter drop-shadow-[0_4px_10px_rgba(90,15,25,0.4)] pointer-events-none select-none"
           />
@@ -120,7 +120,7 @@ export const Slide8: React.FC = () => {
       <div
         className="absolute bottom-0 left-0 right-0 z-20 w-full h-[18px] sm:h-[24px] pointer-events-none select-none opacity-85"
         style={{
-          backgroundImage: "url('/media/pattern.webp')",
+          backgroundImage: "url('./media/pattern.webp')",
           backgroundRepeat: 'repeat-x',
           backgroundPosition: 'bottom center',
           backgroundSize: 'auto 100%',

@@ -31,7 +31,7 @@ export const Slide6: React.FC = () => {
       <div
         className="absolute inset-0 pointer-events-none select-none opacity-20 z-0"
         style={{
-          backgroundImage: "url('/media/perr-tile-83d714.svg')",
+          backgroundImage: "url('./media/perr-tile-83d714.svg')",
           backgroundRepeat: 'repeat',
           backgroundSize: '128px auto',
         }}

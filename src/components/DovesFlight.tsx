@@ -94,7 +94,7 @@ export const DovesFlight: React.FC = () => {
             className="w-full select-none"
             style={{
               aspectRatio: '0.5',
-              backgroundImage: "url('/media/Doves-in-Flight.webp')",
+              backgroundImage: "url('./media/Doves-in-Flight.webp')",
               backgroundRepeat: 'no-repeat',
               backgroundSize: '600% 100%',
               animation: `dove-wings ${dove.wingDuration} steps(6) infinite ${dove.wingDelay}, dove-bob ${dove.flapDuration} ease-in-out infinite alternate`,

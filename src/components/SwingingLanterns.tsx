@@ -9,7 +9,7 @@ export const SwingingLanterns: React.FC = () => {
         aria-hidden="true"
       >
         <img
-          src="/media/lantern-1.webp"
+          src="./media/lantern-1.webp"
           alt=""
           className="w-full h-auto object-contain select-none"
         />
@@ -21,7 +21,7 @@ export const SwingingLanterns: React.FC = () => {
         aria-hidden="true"
       >
         <img
-          src="/media/lantern-1.webp"
+          src="./media/lantern-1.webp"
           alt=""
           className="w-full h-auto object-contain select-none"
         />

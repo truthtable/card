@@ -235,7 +235,7 @@ export const Slide5: React.FC = () => {
       <div
         className="absolute inset-0 pointer-events-none select-none opacity-40 z-0"
         style={{
-          backgroundImage: "url('/media/perr-tile-83d714.svg')",
+          backgroundImage: "url('./media/perr-tile-83d714.svg')",
           backgroundRepeat: 'repeat',
           backgroundSize: '128px auto',
         }}
@@ -246,7 +246,7 @@ export const Slide5: React.FC = () => {
       <div
         className="absolute bottom-0 left-0 right-0 z-30 w-full h-[24px] sm:h-[32px] md:h-[40px] pointer-events-none select-none"
         style={{
-          backgroundImage: "url('/media/grild.webp')",
+          backgroundImage: "url('./media/grild.webp')",
           backgroundRepeat: 'repeat-x',
           backgroundPosition: 'bottom center',
           backgroundSize: 'auto 100%',
@@ -256,16 +256,16 @@ export const Slide5: React.FC = () => {
 
       {/* Soft Floating Background Lanterns */}
       <div className="absolute top-[8%] left-[4%] w-10 sm:w-14 opacity-75 pointer-events-none drop-shadow-[0_4px_12px_rgba(214,173,94,0.4)] animate-lantern-left">
-        <img src="/media/lantern-1.webp" alt="Lantern" className="w-full h-auto object-contain" />
+        <img src="./media/lantern-1.webp" alt="Lantern" className="w-full h-auto object-contain" />
       </div>
       <div className="absolute top-[18%] right-[6%] w-8 sm:w-12 opacity-65 pointer-events-none drop-shadow-[0_4px_12px_rgba(214,173,94,0.35)] animate-lantern-right">
-        <img src="/media/lantern-1-1.webp" alt="Lantern" className="w-full h-auto object-contain" />
+        <img src="./media/lantern-1-1.webp" alt="Lantern" className="w-full h-auto object-contain" />
       </div>
       <div className="absolute top-[52%] left-[6%] w-8 sm:w-12 opacity-65 pointer-events-none drop-shadow-[0_4px_12px_rgba(214,173,94,0.35)] animate-lantern-left">
-        <img src="/media/lantern-1-1.webp" alt="Lantern" className="w-full h-auto object-contain" />
+        <img src="./media/lantern-1-1.webp" alt="Lantern" className="w-full h-auto object-contain" />
       </div>
       <div className="absolute top-[75%] right-[5%] w-10 sm:w-14 opacity-75 pointer-events-none drop-shadow-[0_4px_12px_rgba(214,173,94,0.4)] animate-lantern-right">
-        <img src="/media/lantern-1.webp" alt="Lantern" className="w-full h-auto object-contain" />
+        <img src="./media/lantern-1.webp" alt="Lantern" className="w-full h-auto object-contain" />
       </div>
 
       {/* Golden Timeline Start Anchor */}
@@ -297,7 +297,7 @@ export const Slide5: React.FC = () => {
         }}
       >
         <img
-          src="/media/Wedding-Car.webp"
+          src="./media/Wedding-Car.webp"
           alt="Royal Wedding Car"
           className="w-[52px] xs:w-[62px] sm:w-[74px] md:w-[84px] lg:w-[94px] h-auto object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.32)] select-none pointer-events-none"
         />
@@ -363,7 +363,7 @@ export const Slide5: React.FC = () => {
               <div className="relative w-full max-w-[270px] xs:max-w-[310px] sm:max-w-[360px] md:max-w-[400px] lg:max-w-[430px] drop-shadow-[0_12px_28px_rgba(90,40,20,0.22)]">
                 {/* Frame Image */}
                 <img
-                  src="/media/Wedding-Frame.webp"
+                  src="./media/Wedding-Frame.webp"
                   alt="Wedding Frame"
                   className="w-full h-auto object-contain select-none pointer-events-none"
                 />
@@ -499,7 +499,7 @@ export const Slide5: React.FC = () => {
               <div className="relative w-full max-w-[270px] xs:max-w-[310px] sm:max-w-[360px] md:max-w-[400px] lg:max-w-[430px] drop-shadow-[0_12px_28px_rgba(90,40,20,0.22)]">
                 {/* Frame Image */}
                 <img
-                  src="/media/Wedding-Frame.webp"
+                  src="./media/Wedding-Frame.webp"
                   alt="Wedding Frame"
                   className="w-full h-auto object-contain select-none pointer-events-none"
                 />

@@ -29,9 +29,9 @@ export const Slide3: React.FC = () => {
     >
       {/* Background Image: Desktop & Mobile Variants */}
       <picture className="absolute inset-0 w-full h-full pointer-events-none select-none z-0">
-        <source media="(max-width: 768px)" srcSet="/media/couple-mobile-new.webp" />
+        <source media="(max-width: 768px)" srcSet="./media/couple-mobile-new.webp" />
         <img
-          src="/media/couple-desktop-new.webp"
+          src="./media/couple-desktop-new.webp"
           alt="Palace Background"
           className="w-full h-full object-cover object-center"
         />
@@ -41,7 +41,7 @@ export const Slide3: React.FC = () => {
       <div
         className="absolute top-0 left-0 right-0 z-30 w-full h-[28px] sm:h-[36px] md:h-[44px] pointer-events-none select-none"
         style={{
-          backgroundImage: "url('/media/grild.webp')",
+          backgroundImage: "url('./media/grild.webp')",
           backgroundRepeat: 'repeat-x',
           backgroundPosition: 'top center',
           backgroundSize: 'auto 100%',
@@ -53,7 +53,7 @@ export const Slide3: React.FC = () => {
       <div
         className="absolute bottom-0 left-0 right-0 z-30 w-full h-[24px] sm:h-[32px] md:h-[38px] pointer-events-none select-none opacity-90 drop-shadow-sm"
         style={{
-          backgroundImage: "url('/media/pattern.webp')",
+          backgroundImage: "url('./media/pattern.webp')",
           backgroundRepeat: 'repeat-x',
           backgroundPosition: 'bottom center',
           backgroundSize: 'auto 100%',
@@ -67,7 +67,7 @@ export const Slide3: React.FC = () => {
         aria-hidden="true"
       >
         <img
-          src="/media/lantern-1.webp"
+          src="./media/lantern-1.webp"
           alt="Hanging Lantern"
           className="w-full h-auto object-contain select-none"
         />
@@ -79,7 +79,7 @@ export const Slide3: React.FC = () => {
         aria-hidden="true"
       >
         <img
-          src="/media/lantern-1.webp"
+          src="./media/lantern-1.webp"
           alt="Hanging Lantern"
           className="w-full h-auto object-contain select-none"
         />
@@ -133,7 +133,7 @@ export const Slide3: React.FC = () => {
             {/* Mandala Pendant */}
             <div className="my-1 sm:my-2 w-10 sm:w-12 md:w-14 drop-shadow-[0_4px_10px_rgba(184,134,11,0.3)] hover:scale-105 transition-transform duration-300">
               <img
-                src="/media/Ornate-Gold-and-Rose-Mandala-Pendant.webp"
+                src="./media/Ornate-Gold-and-Rose-Mandala-Pendant.webp"
                 alt="Mandala Pendant"
                 className="w-full h-auto object-contain select-none pointer-events-none"
               />

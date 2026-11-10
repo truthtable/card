@@ -58,7 +58,7 @@ export const FloatingLanterns: React.FC = () => {
           }
         >
           <img
-            src="/media/lantern-1-1.webp"
+            src="./media/lantern-1-1.webp"
             alt=""
             className="w-full h-auto object-contain lantern-sway-glow"
             style={{

@@ -95,7 +95,7 @@ export const App: React.FC = () => {
       {/* Background Audio Player */}
       <audio
         ref={audioRef}
-        src="/media/jashn-e-bahaaraa__instrum-1_medium.mp3"
+        src="./media/jashn-e-bahaaraa__instrum-1_medium.mp3"
         loop
         preload="auto"
       />

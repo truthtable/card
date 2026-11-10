@@ -56,7 +56,7 @@ export const DashboardLogin: React.FC<Props> = ({ onLogin }) => {
     <div
       className="min-h-screen flex items-center justify-center px-4 bg-[#f7ebe4]"
       style={{
-        backgroundImage: "url('/media/perr-tile-83d714.svg')",
+        backgroundImage: "url('./media/perr-tile-83d714.svg')",
         backgroundRepeat: 'repeat',
         backgroundSize: '128px auto',
       }}

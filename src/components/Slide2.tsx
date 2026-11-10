@@ -48,7 +48,7 @@ export const Slide2: React.FC = () => {
       <div
         className="absolute inset-0 pointer-events-none select-none opacity-25 z-0"
         style={{
-          backgroundImage: "url('/media/pat.png')",
+          backgroundImage: "url('./media/pat.png')",
           backgroundRepeat: 'repeat',
           backgroundSize: '240px auto',
         }}
@@ -68,7 +68,7 @@ export const Slide2: React.FC = () => {
             }`}
         >
           <img
-            src="/media/flowers.webp"
+            src="./media/flowers.webp"
             alt="Floral Garland"
             className="w-full h-auto object-contain mx-auto drop-shadow-[0_4px_10px_rgba(90,20,30,0.18)]"
           />
@@ -77,7 +77,7 @@ export const Slide2: React.FC = () => {
         {/* Scroll Upper Wooden/Gold Roller */}
         <div className="relative z-20 w-full drop-shadow-[0_8px_16px_rgba(70,25,35,0.22)] -mb-[6px] transition-transform duration-700">
           <img
-            src="/media/scroll-top-roller.webp"
+            src="./media/scroll-top-roller.webp"
             alt="Scroll Top Roller"
             className="w-full h-auto object-contain block select-none pointer-events-none"
           />
@@ -92,7 +92,7 @@ export const Slide2: React.FC = () => {
         >
           {/* Parchment Background Texture with Ornate Filigree Borders */}
           <img
-            src="/media/scroll-body.webp"
+            src="./media/scroll-body.webp"
             alt="Parchment Paper"
             className="absolute inset-0 w-full h-full object-fill pointer-events-none select-none"
           />
@@ -112,7 +112,7 @@ export const Slide2: React.FC = () => {
                   }`}
               >
                 <img
-                  src="/media/muslim-1785954743405.webp"
+                  src="./media/muslim-1785954743405.webp"
                   alt="Bismillah Calligraphy"
                   className="w-full h-auto object-contain mx-auto drop-shadow-[0_1px_3px_rgba(100,20,30,0.18)]"
                 />
@@ -194,7 +194,7 @@ export const Slide2: React.FC = () => {
             >
               <div className="w-11 h-11 sm:w-12 sm:h-12 md:w-14 md:h-14 mx-auto">
                 <img
-                  src="/media/Seal-Badge.webp"
+                  src="./media/Seal-Badge.webp"
                   alt="Royal Wax Seal"
                   className="w-full h-full object-contain filter drop-shadow-[0_4px_8px_rgba(90,15,25,0.4)]"
                 />
@@ -206,7 +206,7 @@ export const Slide2: React.FC = () => {
         {/* Scroll Lower Wooden/Gold Roller */}
         <div className="relative z-20 w-full drop-shadow-[0_8px_16px_rgba(70,25,35,0.25)] -mt-[6px] transition-transform duration-700">
           <img
-            src="/media/scroll-bottom-roller.webp"
+            src="./media/scroll-bottom-roller.webp"
             alt="Scroll Bottom Roller"
             className="w-full h-auto object-contain block select-none pointer-events-none"
           />

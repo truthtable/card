@@ -8,9 +8,9 @@ export const Slide1: React.FC = () => {
     <section className="relative w-full min-h-[100svh] overflow-hidden flex flex-col justify-between items-center bg-[#f7ebe4]">
       {/* Background: Desktop and Mobile variants */}
       <picture className="absolute inset-0 w-full h-full pointer-events-none select-none z-0">
-        <source media="(max-width: 768px)" srcSet="/media/h-mobile-new.webp" />
+        <source media="(max-width: 768px)" srcSet="./media/h-mobile-new.webp" />
         <img
-          src="/media/h-desktop-new.webp"
+          src="./media/h-desktop-new.webp"
           alt="Palace Background"
           className="w-full h-full object-cover object-top"
         />
@@ -30,7 +30,7 @@ export const Slide1: React.FC = () => {
         {/* 1. Arabic Calligraphy text1.webp */}
         <div className="anim-text-calligraphy w-[180px] sm:w-[220px] md:w-[250px] max-w-[70vw] mt-14 md:mt-1 mb-3 sm:mb-4 drop-shadow-[0_2px_4px_rgba(100,20,30,0.15)] will-change-transform">
           <img
-            src="/media/text1.webp"
+            src="./media/text1.webp"
             alt="Bismillah Calligraphy"
             className="w-full h-auto object-contain mx-auto select-none pointer-events-none"
           />
@@ -44,7 +44,7 @@ export const Slide1: React.FC = () => {
         {/* 3. Divider Ornament divider.webp */}
         <div className="anim-text-divider w-[220px] sm:w-[280px] md:w-[320px] max-w-[80vw] mb-4 sm:mb-6 origin-center will-change-transform">
           <img
-            src="/media/divider.webp"
+            src="./media/divider.webp"
             alt="Ornamental Divider"
             className="w-full h-auto object-contain mx-auto select-none pointer-events-none drop-shadow-sm"
           />
@@ -78,7 +78,7 @@ export const Slide1: React.FC = () => {
       <div
         className="relative z-20 w-full h-[32px] sm:h-[40px] md:h-[46px] pointer-events-none select-none flex-shrink-0"
         style={{
-          backgroundImage: "url('/media/grild.webp')",
+          backgroundImage: "url('./media/grild.webp')",
           backgroundRepeat: 'repeat-x',
           backgroundPosition: 'bottom center',
           backgroundSize: 'auto 100%',

@@ -30,7 +30,7 @@ export const RosePetals: React.FC = () => {
       {petals.map((petal) => (
         <img
           key={petal.id}
-          src="/media/midnight-waltz-rosePetal.webp"
+          src="./media/midnight-waltz-rosePetal.webp"
           alt=""
           className="petal-particle"
           style={

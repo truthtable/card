@@ -253,7 +253,7 @@ export const Slide7: React.FC = () => {
       {/* ── Background: couple-bg.webp ── */}
       <picture className="absolute inset-0 w-full h-full pointer-events-none select-none z-0">
         <img
-          src="/media/couple-bg.webp"
+          src="./media/couple-bg.webp"
           alt="Palace Backdrop"
           className="w-full h-full object-cover object-center"
         />
@@ -266,7 +266,7 @@ export const Slide7: React.FC = () => {
       <div
         className="relative z-10 w-full h-[48px] sm:h-[64px] pointer-events-none"
         style={{
-          backgroundImage: "url('/media/pattern.webp')",
+          backgroundImage: "url('./media/pattern.webp')",
           backgroundRepeat: 'repeat-x',
           backgroundSize: 'auto 100%',
           backgroundPosition: 'center top',
@@ -302,7 +302,7 @@ export const Slide7: React.FC = () => {
               {/* Night palace mini banner */}
               <div
                 className="w-full h-36 sm:h-44 bg-cover bg-center shrink-0"
-                style={{ backgroundImage: "url('/media/night-palace.webp')" }}
+                style={{ backgroundImage: "url('./media/night-palace.webp')" }}
                 aria-hidden="true"
               />
 
@@ -614,7 +614,7 @@ export const Slide7: React.FC = () => {
             <div className="md:w-64 lg:w-72 bg-white/95 rounded-2xl shadow-2xl flex flex-col items-center justify-center p-6 gap-5">
               {/* Decorative lantern */}
               <img
-                src="/media/lantern-1.webp"
+                src="./media/lantern-1.webp"
                 alt="Lantern"
                 className="w-16 h-auto opacity-70 drop-shadow-lg"
               />
@@ -648,7 +648,7 @@ export const Slide7: React.FC = () => {
       <div
         className="relative z-10 w-full h-[48px] sm:h-[64px] pointer-events-none"
         style={{
-          backgroundImage: "url('/media/pattern.webp')",
+          backgroundImage: "url('./media/pattern.webp')",
           backgroundRepeat: 'repeat-x',
           backgroundSize: 'auto 100%',
           backgroundPosition: 'center top',

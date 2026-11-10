@@ -421,7 +421,7 @@ export const Slide4: React.FC = () => {
       {/* Background: couple-bg.webp */}
       <picture className="absolute inset-0 w-full h-full pointer-events-none select-none z-0">
         <img
-          src="/media/couple-bg.webp"
+          src="./media/couple-bg.webp"
           alt="Palace Backdrop"
           className="w-full h-full object-cover object-center"
         />
@@ -431,7 +431,7 @@ export const Slide4: React.FC = () => {
       <div
         className="absolute top-0 left-0 right-0 z-30 w-full h-[24px] sm:h-[32px] md:h-[40px] pointer-events-none select-none rotate-180"
         style={{
-          backgroundImage: "url('/media/grild.webp')",
+          backgroundImage: "url('./media/grild.webp')",
           backgroundRepeat: 'repeat-x',
           backgroundPosition: 'top center',
           backgroundSize: 'auto 100%',
@@ -443,7 +443,7 @@ export const Slide4: React.FC = () => {
       <div
         className="absolute bottom-0 left-0 right-0 z-30 w-full h-[24px] sm:h-[32px] md:h-[40px] pointer-events-none select-none"
         style={{
-          backgroundImage: "url('/media/grild.webp')",
+          backgroundImage: "url('./media/grild.webp')",
           backgroundRepeat: 'repeat-x',
           backgroundPosition: 'bottom center',
           backgroundSize: 'auto 100%',
@@ -549,7 +549,7 @@ export const Slide4: React.FC = () => {
 
           {/* Foreground Frame (scratch-frame.webp) */}
           <img
-            src="/media/scratch-frame.webp"
+            src="./media/scratch-frame.webp"
             alt="Floral Arch Frame"
             className="absolute inset-0 w-full h-full object-contain pointer-events-none select-none z-20 drop-shadow-[0_8px_20px_rgba(83,19,34,0.15)]"
           />

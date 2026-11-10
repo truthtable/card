@@ -89,7 +89,7 @@ export const Dashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#f7ebe4]" style={{
-      backgroundImage: "url('/media/perr-tile-83d714.svg')",
+      backgroundImage: "url('./media/perr-tile-83d714.svg')",
       backgroundRepeat: 'repeat',
       backgroundSize: '128px auto',
     }}>
