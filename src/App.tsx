@@ -8,14 +8,25 @@ import { Slide3 } from './components/Slide3';
 import { Slide4 } from './components/Slide4';
 import { Slide5 } from './components/Slide5';
 import { Slide6 } from './components/Slide6';
+import { Slide7 } from './components/Slide7';
+import { Dashboard } from './components/Dashboard';
 import { FloatingLanterns } from './components/FloatingLanterns';
 
 export const App: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Initialize Lenis smooth inertial scrolling
+  // Hash-based routing: #/dashboard
+  const [route, setRoute] = useState(() => window.location.hash);
   useEffect(() => {
+    const onHash = () => setRoute(window.location.hash);
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
+  }, []);
+
+  // Initialize Lenis smooth inertial scrolling (only for main card)
+  useEffect(() => {
+    if (route === '#/dashboard') return;
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -38,7 +49,7 @@ export const App: React.FC = () => {
       cancelAnimationFrame(rafId);
       lenis.destroy();
     };
-  }, []);
+  }, [route]);
 
   const toggleAudio = () => {
     if (!audioRef.current) return;
@@ -53,6 +64,10 @@ export const App: React.FC = () => {
       });
     }
   };
+
+  if (route === '#/dashboard') {
+    return <Dashboard />;
+  }
 
   return (
     <div className="relative w-full min-h-screen bg-[#f7ebe4]">
@@ -71,6 +86,8 @@ export const App: React.FC = () => {
       <Slide5 />
       {/* Slide 6: Heartfelt Duas & Presence Request */}
       <Slide6 />
+      {/* Slide 7: RSVP Form */}
+      <Slide7 />
 
       {/* Background Audio Player */}
       <audio
