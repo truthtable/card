@@ -183,31 +183,31 @@
 }
 
 .anim-text-calligraphy {
-  animation: royal-fade-scale 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards;
+  animation: royal-fade-scale 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
 }
 
 .anim-text-bismillah {
-  animation: royal-fade-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s backwards;
+  animation: royal-fade-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
 }
 
 .anim-text-divider {
-  animation: divider-grow 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.9s backwards;
+  animation: divider-grow 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.9s both;
 }
 
 .anim-text-groom {
-  animation: royal-fade-up 1.3s cubic-bezier(0.16, 1, 0.3, 1) 1.2s backwards;
+  animation: royal-fade-up 1.3s cubic-bezier(0.16, 1, 0.3, 1) 1.2s both;
 }
 
 .anim-text-ampersand {
-  animation: ampersand-pop 1s cubic-bezier(0.16, 1, 0.3, 1) 1.5s backwards;
+  animation: ampersand-pop 1s cubic-bezier(0.16, 1, 0.3, 1) 1.5s both;
 }
 
 .anim-text-bride {
-  animation: royal-fade-up 1.3s cubic-bezier(0.16, 1, 0.3, 1) 1.7s backwards;
+  animation: royal-fade-up 1.3s cubic-bezier(0.16, 1, 0.3, 1) 1.7s both;
 }
 
 .anim-text-invite {
-  animation: letter-tracking-expand 1.4s cubic-bezier(0.16, 1, 0.3, 1) 2.1s backwards;
+  animation: letter-tracking-expand 1.4s cubic-bezier(0.16, 1, 0.3, 1) 2.1s both;
 }
 
 /* Floating Lanterns Flying Upward */
