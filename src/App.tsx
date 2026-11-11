@@ -67,7 +67,7 @@ export const App: React.FC = () => {
     if (slide0Finished && !userPausedRef.current && audioRef.current && audioRef.current.paused) {
       audioRef.current.play().then(() => {
         setIsPlaying(true);
-      }).catch(() => {});
+      }).catch(() => { });
     }
   }, [slide0Finished]);
 
@@ -134,6 +134,25 @@ export const App: React.FC = () => {
       });
     }
   };
+
+  const OFFLINE = true
+
+  if (OFFLINE) {
+    return <div
+      style={{
+        height: "100vh",
+        width: "100vw",
+        background: "white",
+        textAlign: "center",
+        display: 'flex',
+        justifyContent: "center",
+        alignContent: "center",
+        alignItems: "center"
+      }}
+    >
+      <span className='text-5xl' >Device Offline</span>
+    </div>
+  }
 
   if (route === '#/dashboard') {
     return <Dashboard />;
