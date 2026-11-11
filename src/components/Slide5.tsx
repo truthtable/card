@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { Calendar, CalendarPlus, MapPin, X, Check, ExternalLink, Download } from 'lucide-react';
 
+interface ScheduleEntry {
+  time: string;
+  title: string;
+}
+
 interface EventItem {
   id: string;
   badge: string;
@@ -16,6 +21,7 @@ interface EventItem {
   icsEnd: string;
   location: string;
   description: string;
+  schedule: ScheduleEntry[];
 }
 
 const EVENTS: EventItem[] = [
@@ -28,12 +34,18 @@ const EVENTS: EventItem[] = [
     monthYear: 'NOVEMBER 2026',
     weekday: 'Friday',
     dateDisplay: '27 NOVEMBER 2026',
-    startDateIso: '2026-11-27T18:30:00',
+    startDateIso: '2026-11-27T09:00:00',
     endDateIso: '2026-11-27T22:30:00',
-    icsStart: '20261127T183000',
+    icsStart: '20261127T090000',
     icsEnd: '20261127T223000',
     location: 'The Heritage Royal Palace & Gardens',
-    description: 'Join us as we celebrate this special occasion together. Rasmo Ka Rang celebrations for Taha & Zainab wedding.',
+    description: 'Join us as we celebrate this special occasion together. Rasmo Ka Rang celebrations for Taha & Zainab wedding.\n\nSchedule:\n• 9:00 AM — Mehendi\n• 11:00 AM — Katho Kutva Ni Rasam\n• Magrib Ni Namaz Baad — Varghodo\n• 8:00 PM — Darees',
+    schedule: [
+      { time: '09:00 AM', title: 'Mehendi' },
+      { time: '11:00 PM', title: 'Katho Kutva Ni Rasam' },
+      { time: '06:15 PM', title: 'Varghodo' },
+      { time: '08:00 PM', title: 'Darees' },
+    ],
   },
   {
     id: 'event-2',
@@ -44,12 +56,16 @@ const EVENTS: EventItem[] = [
     monthYear: 'NOVEMBER 2026',
     weekday: 'Saturday',
     dateDisplay: '28 NOVEMBER 2026',
-    startDateIso: '2026-11-28T17:00:00',
+    startDateIso: '2026-11-28T10:00:00',
     endDateIso: '2026-11-28T23:00:00',
-    icsStart: '20261128T170000',
+    icsStart: '20261128T100000',
     icsEnd: '20261128T230000',
     location: 'Grand Imperial Ballroom & Palace',
-    description: 'Join us as we celebrate this special occasion together. The Great Wedding Game Carnival & Reception for Taha & Zainab wedding.',
+    description: 'Join us as we celebrate this special occasion together. The Great Wedding Game Carnival & Reception for Taha & Zainab wedding.\n\nSchedule:\n• 10:00 AM — Games Carnival\n• 7:00 PM — Reception',
+    schedule: [
+      { time: '10:00 AM', title: 'Games Carnival' },
+      { time: '7:00 PM', title: 'Reception' },
+    ],
   },
 ];
 
@@ -218,7 +234,10 @@ export const Slide5: React.FC = () => {
   }, []);
 
   const handleCopyDetails = useCallback((event: EventItem) => {
-    const text = `${event.titleLines.join(' ')}\nDate: ${event.dateDisplay} (${event.weekday})\nVenue: ${event.location}\nCelebrating Taha & Zainab's Wedding!`;
+    const scheduleLines = event.schedule && event.schedule.length > 0
+      ? '\n\nSchedule:\n' + event.schedule.map((s) => `• ${s.time}: ${s.title}`).join('\n')
+      : '';
+    const text = `${event.titleLines.join(' ')}\nDate: ${event.dateDisplay} (${event.weekday})${scheduleLines}\nVenue: ${event.location}\nCelebrating Taha & Zainab's Wedding!`;
     navigator.clipboard.writeText(text).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
@@ -229,7 +248,7 @@ export const Slide5: React.FC = () => {
     <section
       id="slide5"
       ref={sectionRef}
-      className="relative w-full min-h-[140vh] sm:min-h-[150vh] bg-[#fbf5eb] select-none"
+      className="relative w-full min-h-[170vh] sm:min-h-[180vh] md:min-h-[190vh] bg-[#fbf5eb] select-none"
     >
       {/* Background: Repeating Perr Damask Tile Pattern */}
       <div
@@ -306,7 +325,7 @@ export const Slide5: React.FC = () => {
       {/* ========================================================= */}
       {/* SLIDE CONTENT LAYER (Clean natural padding, no gap)       */}
       {/* ========================================================= */}
-      <div className="relative z-10 w-full flex flex-col justify-between min-h-[120vh] sm:min-h-[130vh] pt-12 sm:pt-16 pb-14 sm:pb-20 px-3 sm:px-6">
+      <div className="relative z-10 w-full flex flex-col justify-between min-h-[155vh] sm:min-h-[165vh] md:min-h-[175vh] pt-12 sm:pt-16 pb-14 sm:pb-20 px-3 sm:px-6">
 
         {/* Header Title Section with generous clearance above the car */}
         <div className="flex flex-col items-center text-center max-w-xl mx-auto px-4 mb-28 sm:mb-32 md:mb-36">
@@ -328,7 +347,7 @@ export const Slide5: React.FC = () => {
 
 
         {/* Timeline Events Track: Compact travel distance between Event 1 and Event 2 */}
-        <div className="flex-1 flex flex-col justify-center gap-14 sm:gap-20 md:gap-24 max-w-5xl mx-auto w-full my-6 sm:my-10">
+        <div className="flex-1 flex flex-col justify-center gap-16 sm:gap-24 md:gap-28 max-w-5xl mx-auto w-full my-6 sm:my-10">
 
           {/* ========================================================= */}
           {/* EVENT 1 ROW: Frame on Left, Date 27 on Right             */}
@@ -351,9 +370,9 @@ export const Slide5: React.FC = () => {
               </div>
             </div>
 
-            {/* Left Column: Event 1 Scroll Frame */}
+            {/* Left Column: Event 1 Scroll Frame & Schedule Card */}
             <div
-              className="w-[48%] md:w-[45%] flex justify-end pr-3 sm:pr-8 md:pr-12 will-change-transform"
+              className="w-[48%] md:w-[45%] flex flex-col items-end pr-3 sm:pr-8 md:pr-12 will-change-transform"
               style={{
                 opacity: progress1,
                 transform: `translateX(${(-36 * (1 - progress1)).toFixed(1)}px) scale(${(0.94 + 0.06 * progress1).toFixed(3)})`,
@@ -425,6 +444,44 @@ export const Slide5: React.FC = () => {
                   </button>
                 </div>
               </div>
+
+              {/* Extended Schedule Area: 27 November 2026 Itinerary */}
+              <div className="w-full max-w-[270px] xs:max-w-[310px] sm:max-w-[360px] md:max-w-[400px] lg:max-w-[430px] mt-3 sm:mt-4 p-2.5 xs:p-3 sm:p-4 rounded-2xl bg-gradient-to-b from-[#fffefc]/95 via-[#faf3e7]/95 to-[#f6ecdc]/95 border-2 border-[#d4aa5c]/60 shadow-[0_8px_24px_rgba(100,45,25,0.08)] backdrop-blur-sm relative overflow-hidden">
+                {/* Subtle corner diamond accents */}
+                <span className="absolute top-1.5 left-2 text-[8px] text-[#c99a4e]/40 select-none pointer-events-none">❖</span>
+                <span className="absolute top-1.5 right-2 text-[8px] text-[#c99a4e]/40 select-none pointer-events-none">❖</span>
+                <span className="absolute bottom-1.5 left-2 text-[8px] text-[#c99a4e]/40 select-none pointer-events-none">❖</span>
+                <span className="absolute bottom-1.5 right-2 text-[8px] text-[#c99a4e]/40 select-none pointer-events-none">❖</span>
+
+                {/* Card Header */}
+                <div className="flex items-center justify-center gap-1.5 sm:gap-2 mb-2 sm:mb-2.5">
+                  <span className="w-4 sm:w-8 h-[0.5px] bg-[#cca66b]" />
+                  <span className="font-cinzel text-[9px] xs:text-[10px] sm:text-xs font-bold uppercase tracking-[0.22em] text-[#8b5a2b]">
+                    Celebration Schedule
+                  </span>
+                  <span className="w-4 sm:w-8 h-[0.5px] bg-[#cca66b]" />
+                </div>
+
+                {/* Itinerary List */}
+                <div className="space-y-1.5 sm:space-y-2">
+                  {EVENTS[0].schedule.map((entry, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center justify-between gap-1.5 xs:gap-2 px-2 xs:px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl bg-[#fffefc]/85 hover:bg-[#fffdf8] border border-[#dfcaab]/70 shadow-[0_1px_3px_rgba(100,50,20,0.04)] transition-colors"
+                    >
+                      <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#b88628] flex-shrink-0" />
+                        <span className="font-cinzel text-[10.5px] xs:text-xs sm:text-[13px] md:text-sm font-bold text-[#621626] tracking-wide truncate">
+                          {entry.title}
+                        </span>
+                      </div>
+                      <span className="font-cinzel text-[8.5px] xs:text-[9.5px] sm:text-[11px] md:text-xs font-semibold text-[#8b5a2b] tracking-wider whitespace-nowrap bg-[#fbf5eb] px-1.5 xs:px-2 py-0.5 rounded-md border border-[#dfcaab]/60 flex-shrink-0">
+                        {entry.time}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
 
             {/* Right Column: Date 27 Display */}
@@ -487,9 +544,9 @@ export const Slide5: React.FC = () => {
               </span>
             </div>
 
-            {/* Right Column: Event 2 Scroll Frame */}
+            {/* Right Column: Event 2 Scroll Frame & Schedule Card */}
             <div
-              className="w-[48%] md:w-[45%] flex justify-start pl-3 sm:pl-8 md:pl-12 will-change-transform"
+              className="w-[48%] md:w-[45%] flex flex-col items-start pl-3 sm:pl-8 md:pl-12 will-change-transform"
               style={{
                 opacity: progress2,
                 transform: `translateX(${(36 * (1 - progress2)).toFixed(1)}px) scale(${(0.94 + 0.06 * progress2).toFixed(3)})`,
@@ -561,6 +618,44 @@ export const Slide5: React.FC = () => {
                   </button>
                 </div>
               </div>
+
+              {/* Extended Schedule Area: 28 November 2026 Itinerary */}
+              <div className="w-full max-w-[270px] xs:max-w-[310px] sm:max-w-[360px] md:max-w-[400px] lg:max-w-[430px] mt-3 sm:mt-4 p-2.5 xs:p-3 sm:p-4 rounded-2xl bg-gradient-to-b from-[#fffefc]/95 via-[#faf3e7]/95 to-[#f6ecdc]/95 border-2 border-[#d4aa5c]/60 shadow-[0_8px_24px_rgba(100,45,25,0.08)] backdrop-blur-sm relative overflow-hidden">
+                {/* Subtle corner diamond accents */}
+                <span className="absolute top-1.5 left-2 text-[8px] text-[#c99a4e]/40 select-none pointer-events-none">❖</span>
+                <span className="absolute top-1.5 right-2 text-[8px] text-[#c99a4e]/40 select-none pointer-events-none">❖</span>
+                <span className="absolute bottom-1.5 left-2 text-[8px] text-[#c99a4e]/40 select-none pointer-events-none">❖</span>
+                <span className="absolute bottom-1.5 right-2 text-[8px] text-[#c99a4e]/40 select-none pointer-events-none">❖</span>
+
+                {/* Card Header */}
+                <div className="flex items-center justify-center gap-1.5 sm:gap-2 mb-2 sm:mb-2.5">
+                  <span className="w-4 sm:w-8 h-[0.5px] bg-[#cca66b]" />
+                  <span className="font-cinzel text-[9px] xs:text-[10px] sm:text-xs font-bold uppercase tracking-[0.22em] text-[#8b5a2b]">
+                    Celebration Schedule
+                  </span>
+                  <span className="w-4 sm:w-8 h-[0.5px] bg-[#cca66b]" />
+                </div>
+
+                {/* Itinerary List */}
+                <div className="space-y-1.5 sm:space-y-2">
+                  {EVENTS[1].schedule.map((entry, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center justify-between gap-1.5 xs:gap-2 px-2 xs:px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl bg-[#fffefc]/85 hover:bg-[#fffdf8] border border-[#dfcaab]/70 shadow-[0_1px_3px_rgba(100,50,20,0.04)] transition-colors"
+                    >
+                      <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#b88628] flex-shrink-0" />
+                        <span className="font-cinzel text-[10.5px] xs:text-xs sm:text-[13px] md:text-sm font-bold text-[#621626] tracking-wide truncate">
+                          {entry.title}
+                        </span>
+                      </div>
+                      <span className="font-cinzel text-[8.5px] xs:text-[9.5px] sm:text-[11px] md:text-xs font-semibold text-[#8b5a2b] tracking-wider whitespace-nowrap bg-[#fbf5eb] px-1.5 xs:px-2 py-0.5 rounded-md border border-[#dfcaab]/60 flex-shrink-0">
+                        {entry.time}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
@@ -593,7 +688,7 @@ export const Slide5: React.FC = () => {
             </button>
 
             {/* Modal Header */}
-            <div className="text-center mb-5 pr-4">
+            <div className="text-center mb-4 pr-4">
               <span className="font-cinzel text-xs uppercase tracking-[0.25em] font-semibold text-[#966b2a]">
                 {activeEvent.badge}
               </span>
@@ -608,6 +703,28 @@ export const Slide5: React.FC = () => {
                 {activeEvent.location}
               </p>
             </div>
+
+            {/* Schedule inside modal */}
+            {activeEvent.schedule && activeEvent.schedule.length > 0 && (
+              <div className="mb-4 p-3 rounded-xl bg-[#f4e8d3]/70 border border-[#dfcaab] text-left">
+                <span className="block font-cinzel text-[10px] uppercase tracking-[0.22em] text-[#8b5a2b] font-bold mb-2 text-center">
+                  ❖ Programme Schedule ❖
+                </span>
+                <div className="space-y-1.5">
+                  {activeEvent.schedule.map((s, idx) => (
+                    <div key={idx} className="flex items-center justify-between text-xs text-[#5e1927]">
+                      <div className="flex items-center gap-1.5 min-w-0">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#b88628] flex-shrink-0" />
+                        <span className="font-cinzel font-bold truncate">{s.title}</span>
+                      </div>
+                      <span className="font-cinzel text-[11px] text-[#8b5a2b] font-semibold whitespace-nowrap pl-2">
+                        {s.time}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Option Buttons */}
             <div className="space-y-2.5 sm:space-y-3 font-cinzel text-xs tracking-wider">

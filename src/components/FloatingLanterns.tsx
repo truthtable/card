@@ -37,7 +37,7 @@ const LANTERNS: LanternConfig[] = [
 export const FloatingLanterns: React.FC = () => {
   return (
     <div
-      className="fixed inset-0 pointer-events-none select-none overflow-hidden z-10"
+      className="fixed inset-0 pointer-events-none select-none overflow-hidden z-10 opacity-40"
       aria-hidden="true"
     >
       {LANTERNS.map((l) => (
