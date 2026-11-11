@@ -96,17 +96,17 @@ export const Slide3: React.FC = () => {
         </p>
 
         {/* The Blessed Union Title */}
-        <h2 className="font-cinzel text-3xl sm:text-4xl md:text-5xl font-medium text-[#531322] tracking-[0.06em] mb-2 sm:mb-3 drop-shadow-[0_2px_4px_rgba(83,19,34,0.12)]">
+        <h2 className="font-cinzel text-2xl sm:text-4xl md:text-5xl font-medium text-[#531322] tracking-[0.06em] mb-2 sm:mb-3 drop-shadow-[0_2px_4px_rgba(83,19,34,0.12)]">
           The Blessed Union
         </h2>
 
         {/* Subtitle Message */}
-        <p className="font-sans text-[11px] sm:text-[13px] md:text-[14px] text-[#78404d] tracking-wide max-w-xl mx-auto mb-8 sm:mb-12 md:mb-14 px-4 leading-relaxed">
+        <p className="font-sans text-[11px] sm:text-[13px] md:text-[14px] text-[#78404d] tracking-wide max-w-xl mx-10 mb-8 sm:mb-12 md:mb-14 px-4 leading-relaxed">
           Two souls, one sacred bond, and a beautiful journey together, InshaAllah.
         </p>
 
         {/* Couple Names & Center Mandala Section */}
-        <div className="w-full max-w-2xl mx-auto flex items-center justify-between sm:justify-around px-2 sm:px-6 mb-10 sm:mb-14 md:mb-16">
+        <div className="w-full max-w-2xl mx-auto flex items-center justify-between sm:justify-around px-2 sm:px-6 mb-1 sm:mb-14 md:mb-16">
           {/* The Groom */}
           <div className="flex-1 flex flex-col items-center text-center">
             <span className="font-sans text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.25em] text-[#b88628] font-medium mb-1 sm:mb-2">
@@ -116,7 +116,7 @@ export const Slide3: React.FC = () => {
               Taha
             </h3>
             <p
-              className={`font-serif italic text-[11px] sm:text-[12px] text-[#7d2f3f] tracking-wide mt-1.5 sm:mt-2 transition-all duration-1000 ease-out}`}
+              className="italic text-[11px] sm:text-[12px] text-[#7d2f3f] tracking-wide mt-1.5 sm:mt-2 transition-all duration-1000 ease-out"
             >
               Son of
             </p>
@@ -152,7 +152,7 @@ export const Slide3: React.FC = () => {
               Zainab
             </h3>
             <p
-              className={`font-serif italic text-[11px] sm:text-[12px] text-[#7d2f3f] tracking-wide mt-1.5 sm:mt-2 transition-all duration-1000 ease-out}`}
+              className="italic text-[11px] sm:text-[12px] text-[#7d2f3f] tracking-wide mt-1.5 sm:mt-2 transition-all duration-1000 ease-out"
             >
               Daughter of
             </p>
@@ -163,7 +163,7 @@ export const Slide3: React.FC = () => {
         </div>
 
         {/* Nikah Quote */}
-        <p className="font-cormorant italic text-sm sm:text-base md:text-lg text-[#612130] max-w-xl mx-auto leading-relaxed px-6 drop-shadow-sm">
+        <p className="font-cormorant leading-tight italic text-sm sm:text-base md:text-lg text-[#612130] mt-2 mb-20 max-w-xl mx-auto px-6 drop-shadow-sm">
           &ldquo;By the grace of Allah, two hearts unite in Nikah to begin their journey together.&rdquo;
         </p>
       </div>

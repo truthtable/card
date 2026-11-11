@@ -130,7 +130,7 @@ export const Slide2: React.FC = () => {
               <span className='mt-[10px]'>Masuma & Mohammad Quettawala</span>
               {/* Cordially Request Invitation Text */}
               <p
-                className={`font-serif italic font-normal text-[12px] sm:text-[13.5px] md:text-[14.5px] text-[#6d2535] leading-relaxed max-w-[290px] sm:max-w-[340px] mt-3 sm:mt-4 transition-all duration-1000 ease-out ${isOpen
+                className={`italic font-normal leading-tight text-[12px] sm:text-[13.5px] mx-10 md:text-[14.5px] text-[#6d2535] leading-relaxed max-w-[290px] sm:max-w-[340px] mt-3 sm:mt-4 transition-all duration-1000 ease-out ${isOpen
                   ? 'opacity-100 translate-y-0 delay-[1100ms]'
                   : 'opacity-0 translate-y-4'
                   }`}
@@ -153,12 +153,12 @@ export const Slide2: React.FC = () => {
 
               {/* Ampersand / and */}
               <span
-                className={`font-serif italic text-xl sm:text-2xl md:text-3xl text-[#b5812d] my-0.5 sm:my-1 drop-shadow-xs transition-all duration-900 ease-out ${isOpen
+                className={` italic text-xl sm:text-2xl md:text-3xl  text-[#842a3b] my-0.5 sm:my-1 drop-shadow-xs transition-all duration-900 ease-out ${isOpen
                   ? 'opacity-100 scale-100 delay-[1500ms]'
                   : 'opacity-0 scale-75'
                   }`}
               >
-                and
+                &
               </span>
 
               {/* Bride: Zainab */}
@@ -173,7 +173,7 @@ export const Slide2: React.FC = () => {
 
               {/* Daughter of caption */}
               <p
-                className={`font-serif italic text-[11px] sm:text-[12px] text-[#7d2f3f] tracking-wide mt-1.5 sm:mt-2 transition-all duration-1000 ease-out ${isOpen
+                className={` italic text-[11px] sm:text-[12px] text-[#7d2f3f] tracking-wide mt-1.5 sm:mt-2 transition-all duration-1000 ease-out ${isOpen
                   ? 'opacity-100 translate-y-0 delay-[1900ms]'
                   : 'opacity-0 translate-y-3'
                   }`}
@@ -181,7 +181,7 @@ export const Slide2: React.FC = () => {
                 Daughter of
               </p>
               <span>
-                Rashida & Najmuddin Tinwala
+                Rashida & Najmuddin<br />Tinwala
               </span>
             </div>
 

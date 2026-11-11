@@ -38,7 +38,7 @@ const FlipUnit: React.FC<FlipUnitProps> = ({ value, label }) => {
     <div className="relative z-10 flex flex-col items-center">
       {/* 3D Flip Card Container */}
       <div className="relative w-[68px] h-[82px] xs:w-[74px] xs:h-[88px] sm:w-[86px] sm:h-[102px] md:w-[98px] md:h-[114px] rounded-2xl border border-[#deb86d]/90 shadow-[0_8px_20px_rgba(180,130,50,0.18)] bg-[#faf2e4] overflow-hidden select-none">
-        
+
         {/* Static Top Half (shows currentVal, which is revealed as top flap falls) */}
         <div className="absolute top-0 left-0 right-0 h-1/2 overflow-hidden bg-gradient-to-b from-[#fffefc] to-[#fbf4ea] rounded-t-2xl">
           <div className="absolute top-0 left-0 w-full h-[200%] flex items-center justify-center font-cinzel text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-semibold text-[#4e1220] tracking-tight">
@@ -271,18 +271,20 @@ export const Slide4: React.FC = () => {
 
     const starSize = Math.max(12, Math.floor(width * 0.04));
     ctx.font = `${starSize}px "Cinzel", serif`;
-    ctx.fillText('✦   ✦   ✦', width / 2, height / 2 - height * 0.22);
+    ctx.fillText('✦   ✦   ✦', width / 2, height / 2 - height * 0.24);
 
     // Main Scratch Text
     const titleSize = Math.max(13, Math.floor(width * 0.048));
     ctx.font = `600 ${titleSize}px "Cinzel", "Playfair Display", serif`;
     ctx.fillStyle = '#4e300f';
-    ctx.fillText('Scratch To Reveal Our Nikah Date', width / 2, height / 2);
+    const lineSpacing = titleSize * 1.35;
+    ctx.fillText('Scratch To Reveal', width / 2, height / 2 - lineSpacing * 0.55);
+    ctx.fillText('Our Nikah Date', width / 2, height / 2 + lineSpacing * 0.55);
 
     // Bottom Decorative Flourish
     ctx.font = `${starSize - 2}px serif`;
     ctx.fillStyle = '#654215';
-    ctx.fillText('✦', width / 2, height / 2 + height * 0.22);
+    ctx.fillText('✦', width / 2, height / 2 + height * 0.24);
   }, []);
 
   // Setup canvas with devicePixelRatio
@@ -473,9 +475,8 @@ export const Slide4: React.FC = () => {
 
       {/* Main Content Container */}
       <div
-        className={`relative z-20 flex flex-col items-center text-center max-w-4xl mx-auto w-full my-auto transition-all duration-1000 ease-out ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-        }`}
+        className={`relative z-20 flex flex-col items-center text-center max-w-4xl mx-auto w-full my-auto transition-all duration-1000 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+          }`}
       >
         {/* Header Texts */}
         <p className="font-script text-2xl sm:text-3xl md:text-4xl text-[#bd8c37] drop-shadow-sm mb-0.5 sm:mb-1">
@@ -533,9 +534,8 @@ export const Slide4: React.FC = () => {
             <canvas
               ref={canvasRef}
               data-lenis-prevent
-              className={`absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing transition-opacity duration-700 touch-none ${
-                isRevealed ? 'opacity-0 pointer-events-none' : 'opacity-100 z-20'
-              }`}
+              className={`absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing transition-opacity duration-700 touch-none ${isRevealed ? 'opacity-0 pointer-events-none' : 'opacity-100 z-20'
+                }`}
               onMouseDown={handlePointerDown}
               onMouseMove={handlePointerMove}
               onMouseUp={handlePointerUp}
