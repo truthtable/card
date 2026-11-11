@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { MapPin, Check, X, Edit3, Search, Loader2, Sparkles } from 'lucide-react';
+import { MapPin, Check, X, Edit3, Search, Loader2, Sparkles, Phone } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { supabase } from '../lib/supabase';
 
@@ -25,6 +25,8 @@ const EVENTS_OPTIONS = [
 ];
 
 const LOCATION_URL = 'https://maps.app.goo.gl/myz9bAuRhArG69fr7';
+const VENUE_PHONE = '+919924461853';
+const VENUE_PHONE_DISPLAY = '+91 99244 61853';
 
 export const Slide7: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -404,11 +406,11 @@ export const Slide7: React.FC = () => {
                     )}
 
                     {/* Attendance toggle */}
-                    <div className="flex gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                       <button
                         type="button"
                         onClick={() => setAttending(true)}
-                        className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-full border-2 text-xs sm:text-sm font-cinzel font-semibold tracking-wide transition-all duration-200 cursor-pointer ${attending === true
+                        className={`flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl sm:rounded-full border-2 text-xs sm:text-sm font-cinzel font-semibold tracking-wide transition-all duration-200 cursor-pointer ${attending === true
                           ? 'bg-[#6b1d2e] border-[#6b1d2e] text-white shadow-md'
                           : 'bg-white border-[#d6b08a] text-[#6b1d2e] hover:border-[#6b1d2e]'
                           }`}
@@ -419,7 +421,7 @@ export const Slide7: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => setAttending(false)}
-                        className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-full border-2 text-xs sm:text-sm font-cinzel font-semibold tracking-wide transition-all duration-200 cursor-pointer ${attending === false
+                        className={`flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl sm:rounded-full border-2 text-xs sm:text-sm font-cinzel font-semibold tracking-wide transition-all duration-200 cursor-pointer ${attending === false
                           ? 'bg-[#6b1d2e] border-[#6b1d2e] text-white shadow-md'
                           : 'bg-white border-[#d6b08a] text-[#6b1d2e] hover:border-[#6b1d2e]'
                           }`}
@@ -473,12 +475,12 @@ export const Slide7: React.FC = () => {
 
                     {/* Guests + Phone row (attending only) */}
                     {attending === true && (
-                      <div className="flex gap-3">
-                        <div>
-                          <label className="block font-cinzel text-xs font-semibold text-[#6b1d2e] tracking-wider uppercase mb-1.5">
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        <div className="flex items-center justify-between sm:block">
+                          <label className="block font-cinzel text-xs font-semibold text-[#6b1d2e] tracking-wider uppercase sm:mb-1.5">
                             Guests <span className="text-red-500">*</span>
                           </label>
-                          <div className="flex items-center gap-2 border border-[#d6b08a] rounded-xl px-3 py-2 w-28 bg-white">
+                          <div className="flex items-center gap-2 border border-[#d6b08a] rounded-xl px-3 py-2 w-28 bg-white shrink-0">
                             <button
                               type="button"
                               onClick={() => setGuests(g => Math.max(1, g - 1))}
@@ -492,18 +494,18 @@ export const Slide7: React.FC = () => {
                             >+</button>
                           </div>
                         </div>
-                        <div className="flex-1">
+                        <div className="flex-1 min-w-0">
                           <label className="block font-cinzel text-xs font-semibold text-[#6b1d2e] tracking-wider uppercase mb-1.5">
                             Mobile Number <span className="text-[#c4a882] font-normal">(optional)</span>
                           </label>
                           <div className="flex border border-[#d6b08a] rounded-xl overflow-hidden focus-within:border-[#6b1d2e] focus-within:ring-1 focus-within:ring-[#6b1d2e]/30 transition bg-white">
-                            <span className="flex items-center px-3 bg-[#faf5ef] text-[#6b1d2e] font-cinzel text-sm border-r border-[#d6b08a] select-none">+91</span>
+                            <span className="flex items-center px-3 bg-[#faf5ef] text-[#6b1d2e] font-cinzel text-sm border-r border-[#d6b08a] select-none shrink-0">+91</span>
                             <input
                               type="tel"
                               placeholder="Enter mobile number"
                               value={phone}
                               onChange={e => setPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
-                              className="flex-1 px-3 py-2.5 text-sm font-sans text-[#3a1a1a] placeholder-[#c4a882] focus:outline-none bg-white"
+                              className="w-full min-w-0 px-3 py-2.5 text-sm font-sans text-[#3a1a1a] placeholder-[#c4a882] focus:outline-none bg-white"
                             />
                           </div>
                         </div>
@@ -517,13 +519,13 @@ export const Slide7: React.FC = () => {
                           Mobile Number <span className="text-[#c4a882] font-normal">(optional)</span>
                         </label>
                         <div className="flex border border-[#d6b08a] rounded-xl overflow-hidden focus-within:border-[#6b1d2e] focus-within:ring-1 focus-within:ring-[#6b1d2e]/30 transition bg-white">
-                          <span className="flex items-center px-3 bg-[#faf5ef] text-[#6b1d2e] font-cinzel text-sm border-r border-[#d6b08a] select-none">+91</span>
+                          <span className="flex items-center px-3 bg-[#faf5ef] text-[#6b1d2e] font-cinzel text-sm border-r border-[#d6b08a] select-none shrink-0">+91</span>
                           <input
                             type="tel"
                             placeholder="Enter mobile number"
                             value={phone}
                             onChange={e => setPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
-                            className="flex-1 px-3 py-2.5 text-sm font-sans text-[#3a1a1a] placeholder-[#c4a882] focus:outline-none bg-white"
+                            className="w-full min-w-0 px-3 py-2.5 text-sm font-sans text-[#3a1a1a] placeholder-[#c4a882] focus:outline-none bg-white"
                           />
                         </div>
                       </div>
@@ -554,13 +556,15 @@ export const Slide7: React.FC = () => {
                     {!isEditing && (
                       <div className="pt-2 text-center border-t border-[#d6b08a]/40">
                         {!lookupOpen ? (
-                          <button
-                            type="button"
-                            onClick={() => { setLookupOpen(true); setLookupError(''); }}
-                            className="text-[11px] font-cinzel tracking-wider text-[#8b5a2b] hover:text-[#6b1d2e] hover:underline cursor-pointer"
-                          >
-                            Already submitted? Find &amp; edit your RSVP
-                          </button>
+                          <>
+                            {/* <button
+                              type="button"
+                              onClick={() => { setLookupOpen(true); setLookupError(''); }}
+                              className="text-[11px] font-cinzel tracking-wider text-[#8b5a2b] hover:text-[#6b1d2e] hover:underline cursor-pointer"
+                            >
+                              Already submitted? Find &amp; edit your RSVP
+                            </button> */}
+                          </>
                         ) : (
                           <div className="space-y-2 pt-1 text-left">
                             <div className="flex items-center justify-between">
@@ -577,7 +581,7 @@ export const Slide7: React.FC = () => {
                             </div>
                             <div className="flex gap-2">
                               <div className="flex flex-1 border border-[#d6b08a] rounded-xl overflow-hidden focus-within:border-[#6b1d2e] transition bg-white">
-                                <span className="flex items-center px-2.5 bg-[#faf5ef] text-[#6b1d2e] font-cinzel text-xs border-r border-[#d6b08a]">
+                                <span className="flex items-center px-2.5 bg-[#faf5ef] text-[#6b1d2e] font-cinzel text-xs border-r border-[#d6b08a] shrink-0 select-none">
                                   +91
                                 </span>
                                 <input
@@ -585,7 +589,7 @@ export const Slide7: React.FC = () => {
                                   placeholder="Enter 10-digit number"
                                   value={lookupPhone}
                                   onChange={e => setLookupPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
-                                  className="flex-1 px-2.5 py-1.5 text-xs font-sans text-[#3a1a1a] placeholder-[#c4a882] focus:outline-none"
+                                  className="w-full min-w-0 px-2.5 py-1.5 text-xs font-sans text-[#3a1a1a] placeholder-[#c4a882] focus:outline-none"
                                 />
                               </div>
                               <button
@@ -626,8 +630,8 @@ export const Slide7: React.FC = () => {
                 </p>
               </div>
 
-              {/* Get Directions Button */}
-              <div className="w-full pt-1">
+              {/* Action Buttons */}
+              <div className="w-full pt-1 space-y-2.5">
                 <a
                   href={LOCATION_URL}
                   target="_blank"
@@ -636,6 +640,14 @@ export const Slide7: React.FC = () => {
                 >
                   <MapPin className="w-5 h-5 text-[#f6d59e] group-hover:scale-110 group-hover:text-amber-200 transition-all shrink-0" />
                   <span>Get Directions</span>
+                </a>
+
+                <a
+                  href={`tel:${VENUE_PHONE}`}
+                  className="w-full py-3 px-4 rounded-xl bg-[#faf5ef] hover:bg-[#f3e7d7] text-[#6b1d2e] font-cinzel font-semibold text-xs sm:text-sm tracking-wider flex items-center justify-center gap-2 border border-[#d6b08a] shadow-sm hover:border-[#6b1d2e] active:scale-[0.98] transition-all duration-200 cursor-pointer group"
+                >
+                  <Phone className="w-4 h-4 text-[#8b5a2b] group-hover:text-[#6b1d2e] transition-colors shrink-0" />
+                  <span>Call: {VENUE_PHONE_DISPLAY}</span>
                 </a>
               </div>
             </div>
