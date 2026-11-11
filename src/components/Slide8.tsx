@@ -50,13 +50,13 @@ export const Slide8: React.FC = () => {
         <h2
           dir="rtl"
           lang="ar"
-          className="font-urdu text-lg xs:text-xl sm:text-2xl md:text-3xl text-[#8b5a2b] font-bold leading-[1.9] sm:leading-[2.1] tracking-normal mb-1 drop-shadow-[0_1px_3px_rgba(255,255,255,0.85)]"
+          className="font-urdu text-lg xs:text-xl sm:text-2xl md:text-3xl text-[#6B1E2F] font-bold leading-[1.9] sm:leading-[2.1] tracking-normal mb-1 drop-shadow-[0_1px_3px_rgba(255,255,255,0.85)]"
         >
           بَارَكَ ٱللَّهُ لَكُمَا وَبَارَكَ عَلَيْكُمَا وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ
         </h2>
 
         {/* 2. We await your blessed presence */}
-        <p className="font-script italic text-xl xs:text-2xl sm:text-3xl text-[#9c6d3b] tracking-wide mb-2 sm:mb-2.5 drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]">
+        <p className="font-script italic mt-2 text-xl xs:text-2xl sm:text-3xl text-[#9c6d3b] tracking-wide mb-2 sm:mb-2.5 drop-shadow-[0_1px_2px_rgba(255,255,255,0.9)]">
           We await your blessed presence
         </p>
 
@@ -75,7 +75,7 @@ export const Slide8: React.FC = () => {
         </div>
 
         {/* 4. Couple Names */}
-        <h3 className="font-script italic text-2xl xs:text-3xl sm:text-4xl text-[#8b5a2b] font-medium tracking-wide mt-1 mb-0.5 drop-shadow-[0_1px_2px_rgba(255,255,255,0.85)]">
+        <h3 className="font-script italic text-2xl xs:text-3xl sm:text-4xl text-[#6B1E2F] font-medium tracking-wide mt-1 mb-0.5 drop-shadow-[0_1px_2px_rgba(255,255,255,0.85)]">
           Taha &amp; Zainab
         </h3>
 
