@@ -135,7 +135,7 @@ export const App: React.FC = () => {
     }
   };
 
-  const OFFLINE = false
+  const OFFLINE = true
 
   if (OFFLINE) {
     return <div
