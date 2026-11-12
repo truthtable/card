@@ -125,7 +125,7 @@ export const Slide2: React.FC = () => {
                   : 'opacity-0 translate-y-4'
                   }`}
               >
-                Cordially request the honor of your presence at the nikah celebration of our beloved son
+                Cordially request the honor of your presence at the wedding celebration of our beloved son
               </p>
             </div>
 

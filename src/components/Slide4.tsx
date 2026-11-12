@@ -113,8 +113,8 @@ interface ScratchCardItemProps {
   dayName: string;
   dayNumber: string;
   monthYear: string;
-  scratchSubtitle: string;
-  eventSubtitle?: string;
+  scratchSubtitle: string | string[];
+  eventSubtitle?: string | string[];
   isRevealed: boolean;
   onReveal: () => void;
   isCompact?: boolean;
@@ -134,6 +134,8 @@ const ScratchCardItem: React.FC<ScratchCardItemProps> = ({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const lastPosRef = useRef<{ x: number; y: number } | null>(null);
   const isDrawingRef = useRef(false);
+
+  const subtitleKey = Array.isArray(scratchSubtitle) ? scratchSubtitle.join('|') : scratchSubtitle;
 
   // Paint the golden metallic scratch texture and invitation text
   const drawGoldCard = useCallback(
@@ -176,19 +178,28 @@ const ScratchCardItem: React.FC<ScratchCardItemProps> = ({
       ctx.fillText('✦   ✦   ✦', width / 2, height / 2 - height * 0.24);
 
       // Main Scratch Text
-      const titleSize = Math.max(12, Math.floor(width * 0.046));
+      const subtitles = Array.isArray(scratchSubtitle) ? scratchSubtitle : [scratchSubtitle];
+      const titleSize = subtitles.length > 1
+        ? Math.max(10, Math.floor(width * 0.04))
+        : Math.max(12, Math.floor(width * 0.046));
       ctx.font = `600 ${titleSize}px "Cinzel", "Playfair Display", serif`;
       ctx.fillStyle = '#4e300f';
+
       const lineSpacing = titleSize * 1.35;
-      ctx.fillText('Scratch To Reveal', width / 2, height / 2 - lineSpacing * 0.55);
-      ctx.fillText(scratchSubtitle, width / 2, height / 2 + lineSpacing * 0.55);
+      const allLines = ['Scratch To Reveal', ...subtitles];
+      const totalHeight = (allLines.length - 1) * lineSpacing;
+      const startY = height / 2 - totalHeight / 2;
+
+      allLines.forEach((line, index) => {
+        ctx.fillText(line, width / 2, startY + index * lineSpacing);
+      });
 
       // Bottom Decorative Flourish
       ctx.font = `${starSize - 2}px serif`;
       ctx.fillStyle = '#654215';
       ctx.fillText('✦', width / 2, height / 2 + height * 0.24);
     },
-    [scratchSubtitle]
+    [subtitleKey]
   );
 
   // Setup canvas with devicePixelRatio
@@ -363,9 +374,16 @@ const ScratchCardItem: React.FC<ScratchCardItemProps> = ({
 
           {/* Event Subtitle */}
           {eventSubtitle && (
-            <span className="font-cinzel text-[8px] xs:text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-[#8e5c1e] font-semibold mt-0.5">
-              {eventSubtitle}
-            </span>
+            <div className="flex flex-col items-center justify-center mt-0.5 leading-tight">
+              {(Array.isArray(eventSubtitle) ? eventSubtitle : [eventSubtitle]).map((sub, idx) => (
+                <span
+                  key={idx}
+                  className="font-cinzel text-[7.5px] xs:text-[8.5px] sm:text-[9.5px] md:text-[10px] uppercase tracking-[0.18em] text-[#8e5c1e] font-semibold"
+                >
+                  {sub}
+                </span>
+              ))}
+            </div>
           )}
 
           {/* Bottom Ornamental Line */}
@@ -650,8 +668,8 @@ export const Slide4: React.FC = () => {
                 dayName="Friday"
                 dayNumber="27"
                 monthYear="November 2026"
-                scratchSubtitle="Rasmo Ka Rang"
-                eventSubtitle="Rasmo Ka Rang"
+                scratchSubtitle={['Rasmo Ka Rang', 'Reception Ceremony']}
+                eventSubtitle={['Rasmo Ka Rang', 'Reception Ceremony']}
                 isRevealed={isRevealed27}
                 onReveal={revealCard27}
                 isCompact

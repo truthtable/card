@@ -115,6 +115,18 @@ export const Slide7: React.FC = () => {
     );
   };
 
+  const isBothSelected =
+    EVENTS_OPTIONS.length > 0 &&
+    EVENTS_OPTIONS.every(ev => selectedEvents.includes(ev.id));
+
+  const toggleBothEvents = () => {
+    if (isBothSelected) {
+      setSelectedEvents([]);
+    } else {
+      setSelectedEvents(EVENTS_OPTIONS.map(ev => ev.id));
+    }
+  };
+
   const handleLookup = async (e: React.FormEvent) => {
     e.preventDefault();
     const clean = lookupPhone.trim().replace(/\D/g, '').slice(-10);
@@ -437,7 +449,7 @@ export const Slide7: React.FC = () => {
                         <p className="font-cinzel text-xs font-semibold text-[#6b1d2e] tracking-wider uppercase">
                           Which celebration(s) will you join?
                         </p>
-                        <div className="flex gap-3 flex-wrap">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                           {EVENTS_OPTIONS.map(ev => (
                             <label
                               key={ev.id}
@@ -446,7 +458,7 @@ export const Slide7: React.FC = () => {
                                 flexDirection: "row",
                                 alignItems: "center",
                               }}
-                              className={`flex items-start gap-2 border-2 rounded-xl px-3 py-2.5 cursor-pointer transition-all duration-150 text-[11px] font-cinzel font-semibold tracking-wider uppercase leading-tight flex-1 min-w-[120px] ${selectedEvents.includes(ev.id)
+                              className={`flex items-start gap-2 border-2 rounded-xl px-3 py-2.5 cursor-pointer transition-all duration-150 text-[11px] font-cinzel font-semibold tracking-wider uppercase leading-tight ${selectedEvents.includes(ev.id)
                                 ? 'border-[#6b1d2e] bg-[#f9f0f2]'
                                 : 'border-[#d6b08a] bg-white hover:border-[#6b1d2e]/60'
                                 }`}
@@ -465,6 +477,34 @@ export const Slide7: React.FC = () => {
                               <span className="whitespace-pre-line">{ev.label}</span>
                             </label>
                           ))}
+
+                          {/* Button for both dates 27th & 28th */}
+                          <button
+                            type="button"
+                            onClick={toggleBothEvents}
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                            className={`sm:col-span-2 flex items-center justify-center gap-2 border-2 rounded-xl px-3 py-2.5 cursor-pointer transition-all duration-150 text-[11px] font-cinzel font-semibold tracking-wider uppercase leading-tight ${isBothSelected
+                              ? 'border-[#6b1d2e] bg-[#f9f0f2] text-[#6b1d2e]'
+                              : 'border-[#d6b08a] bg-white text-[#6b1d2e] hover:border-[#6b1d2e]/60'
+                              }`}
+                          >
+                            <input
+                              type="checkbox"
+                              readOnly
+                              checked={isBothSelected}
+                              tabIndex={-1}
+                              className="accent-[#6b1d2e] w-3.5 h-3.5 shrink-0 pointer-events-none"
+                            />
+                            <span className="text-base ms-1 font-bold">
+                              27th &amp; 28th
+                            </span>
+                            <span>Both Dates (Attending Both)</span>
+                          </button>
                         </div>
                       </div>
                     )}

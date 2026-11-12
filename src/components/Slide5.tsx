@@ -10,6 +10,7 @@ interface EventItem {
   id: string;
   badge: string;
   titleLines: string[];
+  extraTitle: string;
   subtitle: string;
   dayNumber: string;
   monthYear: string;
@@ -30,6 +31,7 @@ const EVENTS: EventItem[] = [
     badge: 'EVENT 1',
     titleLines: ['RASMO KA RANG,', 'KHUSHIYON KE SANG!'],
     subtitle: 'JOIN US AS WE CELEBRATE THIS SPECIAL OCCASION TOGETHER.',
+    extraTitle: "",
     dayNumber: '27',
     monthYear: 'NOVEMBER 2026',
     weekday: 'Friday',
@@ -52,6 +54,7 @@ const EVENTS: EventItem[] = [
     badge: 'EVENT 2',
     titleLines: ['THE GREAT', 'WEDDING GAME', 'CARNIVAL!'],
     subtitle: 'JOIN US AS WE CELEBRATE THIS SPECIAL OCCASION TOGETHER.',
+    extraTitle: "Reception",
     dayNumber: '28',
     monthYear: 'NOVEMBER 2026',
     weekday: 'Saturday',
@@ -574,6 +577,8 @@ export const Slide5: React.FC = () => {
                       </h3>
                     ))}
                   </div>
+
+                  <div className="py-0.5"> <span>{EVENTS[1].extraTitle}</span></div>
 
                   {/* Subtitle Message */}
                   <p className=" italic text-[6px] xs:text-[9.5px] sm:text-xs text-[#7a4855] leading-tight mx-2 max-w-[240px] line-clamp-2 sm:line-clamp-none font-medium uppercase sm:normal-case px-0.5">
