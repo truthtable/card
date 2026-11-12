@@ -117,16 +117,6 @@ export const Slide2: React.FC = () => {
                   className="w-full h-auto object-contain mx-auto drop-shadow-[0_1px_3px_rgba(100,20,30,0.18)]"
                 />
               </div>
-
-              {/* Bismillah English Text */}
-              <p
-                className={`font-sans font-semibold text-[10px] sm:text-[11px] md:text-[12px] uppercase tracking-[0.22em] text-[#842a3b] mt-1.5 sm:mt-2 transition-all duration-1000 ease-out ${isOpen
-                  ? 'opacity-100 translate-y-0 delay-[900ms]'
-                  : 'opacity-0 translate-y-3'
-                  }`}
-              >
-                Bismillahir Rahmanir Raheem
-              </p>
               <span className='mt-[10px]'>Masuma & Mohammad Quettawala</span>
               {/* Cordially Request Invitation Text */}
               <p

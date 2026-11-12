@@ -20,8 +20,8 @@ const RSVP_DATA_STORAGE_KEY = 'wedding_rsvp_data';
 
 // ── Slide 7 ────────────────────────────────────────────────────────────────
 const EVENTS_OPTIONS = [
-  { id: 'event1', label: 'RASMO KA RANG,\nKHUSHIYON KE SANG!' },
-  { id: 'event2', label: 'THE GREAT\nWEDDING GAME\nCARNIVAL!' },
+  { id: 'event1', label: 'RASMO KA RANG,\nKHUSHIYON KE SANG!', date: "27th" },
+  { id: 'event2', label: 'THE GREAT\nWEDDING GAME\nCARNIVAL!', date: "28th" },
 ];
 
 const LOCATION_URL = 'https://maps.app.goo.gl/myz9bAuRhArG69fr7';
@@ -441,6 +441,11 @@ export const Slide7: React.FC = () => {
                           {EVENTS_OPTIONS.map(ev => (
                             <label
                               key={ev.id}
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                              }}
                               className={`flex items-start gap-2 border-2 rounded-xl px-3 py-2.5 cursor-pointer transition-all duration-150 text-[11px] font-cinzel font-semibold tracking-wider uppercase leading-tight flex-1 min-w-[120px] ${selectedEvents.includes(ev.id)
                                 ? 'border-[#6b1d2e] bg-[#f9f0f2]'
                                 : 'border-[#d6b08a] bg-white hover:border-[#6b1d2e]/60'
@@ -448,10 +453,15 @@ export const Slide7: React.FC = () => {
                             >
                               <input
                                 type="checkbox"
-                                className="mt-0.5 accent-[#6b1d2e] w-3.5 h-3.5 shrink-0"
+                                className="mt-0.5 accent-[#6b1d2e] w-3.5 h-3.5 shrink-0 ms-1"
                                 checked={selectedEvents.includes(ev.id)}
                                 onChange={() => toggleEvent(ev.id)}
                               />
+                              <span
+                                className='text-base ms-1'
+                              >
+                                {ev.date}
+                              </span>
                               <span className="whitespace-pre-line">{ev.label}</span>
                             </label>
                           ))}
