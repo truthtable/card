@@ -16,7 +16,7 @@ export const Slide2: React.FC = () => {
             if (openTimer) clearTimeout(openTimer);
             openTimer = setTimeout(() => {
               setIsOpen(true);
-            }, 250);
+            }, 200);
           } else {
             // Scroll is not visible -> close immediately so it re-animates next time
             if (openTimer) clearTimeout(openTimer);
@@ -25,7 +25,7 @@ export const Slide2: React.FC = () => {
         });
       },
       {
-        threshold: 0.25, // Triggers only when scroll is visible in screen
+        threshold: 0.2, // Triggers only when scroll is visible in screen
       }
     );
 
@@ -46,7 +46,7 @@ export const Slide2: React.FC = () => {
     >
       {/* Repeating Damask Wallpaper Pattern */}
       <div
-        className="absolute inset-0 pointer-events-none select-none opacity-25 z-0"
+        className="absolute inset-0 pointer-events-none select-none opacity-25 z-0 transform-gpu"
         style={{
           backgroundImage: "url('./media/pat.png')",
           backgroundRepeat: 'repeat',
@@ -58,13 +58,13 @@ export const Slide2: React.FC = () => {
       {/* Royal Scroll Container */}
       <div
         ref={scrollRef}
-        className="relative z-20 flex flex-col items-center justify-center w-full max-w-[420px] sm:max-w-[460px] md:max-w-[500px] mx-auto my-auto"
+        className="relative z-20 flex flex-col items-center justify-center w-full max-w-[420px] sm:max-w-[460px] md:max-w-[500px] mx-auto my-auto transform-gpu"
       >
         {/* Flowers Overlay on Top Roller */}
         <div
-          className={`absolute -top-7 sm:-top-9 md:-top-11 z-30 w-[78%] max-w-[370px] pointer-events-none transition-all duration-1000 ease-out ${isOpen
-            ? 'opacity-100 transform translate-y-0 scale-100 delay-[550ms]'
-            : 'opacity-0 transform -translate-y-4 scale-90'
+          className={`absolute -top-7 sm:-top-9 md:-top-11 z-30 w-[78%] max-w-[370px] pointer-events-none transition-[transform,opacity] duration-700 ease-out transform-gpu will-change-[transform,opacity] ${isOpen
+            ? 'opacity-100 translate-y-0 scale-100 delay-[400ms]'
+            : 'opacity-0 -translate-y-4 scale-90'
             }`}
         >
           <img
@@ -75,7 +75,7 @@ export const Slide2: React.FC = () => {
         </div>
 
         {/* Scroll Upper Wooden/Gold Roller */}
-        <div className="relative z-20 w-full drop-shadow-[0_8px_16px_rgba(70,25,35,0.22)] -mb-[6px] transition-transform duration-700">
+        <div className="relative z-20 w-full drop-shadow-[0_8px_16px_rgba(70,25,35,0.22)] -mb-[6px] transform-gpu">
           <img
             src="./media/scroll-top-roller.webp"
             alt="Scroll Top Roller"
@@ -85,7 +85,7 @@ export const Slide2: React.FC = () => {
 
         {/* Middle Parchment Sheet (Expands Vertically) */}
         <div
-          className={`relative z-10 w-full overflow-hidden transition-all duration-[1400ms] ease-[cubic-bezier(0.25,1,0.35,1)] ${isOpen
+          className={`relative z-10 w-full overflow-hidden transition-[height,opacity] duration-1000 ease-[cubic-bezier(0.25,1,0.35,1)] transform-gpu will-change-[height] ${isOpen
             ? 'h-[490px] sm:h-[550px] md:h-[590px] opacity-100'
             : 'h-0 opacity-0'
             }`}
@@ -97,17 +97,17 @@ export const Slide2: React.FC = () => {
             className="absolute inset-0 w-full h-full object-fill pointer-events-none select-none"
           />
 
-          {/* Parchment Inner Content */}
+          {/* Parchment Inner Content: Fixed height prevents layout thrashing during unroll */}
           <div
-            className={`relative z-10 w-full h-full flex flex-col items-center justify-between text-center px-8 sm:px-12 py-7 sm:py-9 transition-opacity duration-700 ${isOpen ? 'opacity-100 delay-300' : 'opacity-0'
+            className={`relative z-10 w-full h-[490px] sm:h-[550px] md:h-[590px] flex flex-col items-center justify-between text-center px-8 sm:px-12 py-7 sm:py-9 transition-opacity duration-500 transform-gpu ${isOpen ? 'opacity-100 delay-200' : 'opacity-0'
               }`}
           >
             {/* Top Group: Arabic Calligraphy & Bismillah Translation */}
             <div className="flex flex-col items-center w-full pt-1 sm:pt-2">
               {/* Arabic Calligraphy (muslim-1785954743405.webp) */}
               <div
-                className={`w-[170px] sm:w-[210px] md:w-[230px] transition-all duration-1000 ease-out ${isOpen
-                  ? 'opacity-100 translate-y-0 scale-100 delay-[700ms]'
+                className={`w-[170px] sm:w-[210px] md:w-[230px] transition-[transform,opacity] duration-700 ease-out transform-gpu will-change-[transform,opacity] ${isOpen
+                  ? 'opacity-100 translate-y-0 scale-100 delay-[500ms]'
                   : 'opacity-0 translate-y-3 scale-95'
                   }`}
               >
@@ -120,8 +120,8 @@ export const Slide2: React.FC = () => {
               <span className='mt-[10px]'>Masuma & Mohammad Quettawala</span>
               {/* Cordially Request Invitation Text */}
               <p
-                className={`italic font-normal leading-tight text-[12px] sm:text-[13.5px] mx-10 md:text-[14.5px] text-[#6d2535] leading-relaxed max-w-[290px] sm:max-w-[340px] mt-3 sm:mt-4 transition-all duration-1000 ease-out ${isOpen
-                  ? 'opacity-100 translate-y-0 delay-[1100ms]'
+                className={`italic font-normal leading-tight text-[12px] sm:text-[13.5px] mx-10 md:text-[14.5px] text-[#6d2535] leading-relaxed max-w-[290px] sm:max-w-[340px] mt-3 sm:mt-4 transition-[transform,opacity] duration-700 ease-out transform-gpu will-change-[transform,opacity] ${isOpen
+                  ? 'opacity-100 translate-y-0 delay-[700ms]'
                   : 'opacity-0 translate-y-4'
                   }`}
               >
@@ -133,8 +133,8 @@ export const Slide2: React.FC = () => {
             <div className="flex flex-col items-center justify-center my-auto py-1 sm:py-2">
               {/* Groom: Taha */}
               <h2
-                className={`font-italiana font-normal text-4xl sm:text-5xl md:text-[56px] text-[#531322] tracking-wide leading-tight drop-shadow-[0_2px_4px_rgba(83,19,34,0.12)] transition-all duration-1000 ease-out ${isOpen
-                  ? 'opacity-100 translate-y-0 delay-[1300ms]'
+                className={`font-italiana font-normal text-4xl sm:text-5xl md:text-[56px] text-[#531322] tracking-wide leading-tight transition-[transform,opacity] duration-700 ease-out transform-gpu will-change-[transform,opacity] ${isOpen
+                  ? 'opacity-100 translate-y-0 delay-[850ms]'
                   : 'opacity-0 translate-y-4'
                   }`}
               >
@@ -143,8 +143,8 @@ export const Slide2: React.FC = () => {
 
               {/* Ampersand / and */}
               <span
-                className={` italic text-xl sm:text-2xl md:text-3xl  text-[#842a3b] my-0.5 sm:my-1 drop-shadow-xs transition-all duration-900 ease-out ${isOpen
-                  ? 'opacity-100 scale-100 delay-[1500ms]'
+                className={`italic text-xl sm:text-2xl md:text-3xl text-[#842a3b] my-0.5 sm:my-1 transition-[transform,opacity] duration-600 ease-out transform-gpu will-change-[transform,opacity] ${isOpen
+                  ? 'opacity-100 scale-100 delay-[950ms]'
                   : 'opacity-0 scale-75'
                   }`}
               >
@@ -153,8 +153,8 @@ export const Slide2: React.FC = () => {
 
               {/* Bride: Zainab */}
               <h2
-                className={`font-italiana font-normal text-4xl sm:text-5xl md:text-[56px] text-[#531322] tracking-wide leading-tight drop-shadow-[0_2px_4px_rgba(83,19,34,0.12)] transition-all duration-1000 ease-out ${isOpen
-                  ? 'opacity-100 translate-y-0 delay-[1700ms]'
+                className={`font-italiana font-normal text-4xl sm:text-5xl md:text-[56px] text-[#531322] tracking-wide leading-tight transition-[transform,opacity] duration-700 ease-out transform-gpu will-change-[transform,opacity] ${isOpen
+                  ? 'opacity-100 translate-y-0 delay-[1050ms]'
                   : 'opacity-0 translate-y-4'
                   }`}
               >
@@ -163,8 +163,8 @@ export const Slide2: React.FC = () => {
 
               {/* Daughter of caption */}
               <p
-                className={` italic text-[11px] sm:text-[12px] text-[#7d2f3f] tracking-wide mt-1.5 sm:mt-2 transition-all duration-1000 ease-out ${isOpen
-                  ? 'opacity-100 translate-y-0 delay-[1900ms]'
+                className={`italic text-[11px] sm:text-[12px] text-[#7d2f3f] tracking-wide mt-1.5 sm:mt-2 transition-[transform,opacity] duration-700 ease-out transform-gpu will-change-[transform,opacity] ${isOpen
+                  ? 'opacity-100 translate-y-0 delay-[1150ms]'
                   : 'opacity-0 translate-y-3'
                   }`}
               >
@@ -177,8 +177,8 @@ export const Slide2: React.FC = () => {
 
             {/* Bottom Group: Wax Seal Badge (Seal-Badge.webp) */}
             <div
-              className={`relative z-20 pb-1 sm:pb-2 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${isOpen
-                ? 'opacity-100 scale-100 rotate-0 delay-[2100ms]'
+              className={`relative z-20 pb-1 sm:pb-2 transition-[transform,opacity] duration-600 ease-[cubic-bezier(0.34,1.56,0.64,1)] transform-gpu will-change-[transform,opacity] ${isOpen
+                ? 'opacity-100 scale-100 rotate-0 delay-[1250ms]'
                 : 'opacity-0 scale-150 rotate-12'
                 }`}
             >
@@ -194,7 +194,7 @@ export const Slide2: React.FC = () => {
         </div>
 
         {/* Scroll Lower Wooden/Gold Roller */}
-        <div className="relative z-20 w-full drop-shadow-[0_8px_16px_rgba(70,25,35,0.25)] -mt-[6px] transition-transform duration-700">
+        <div className="relative z-20 w-full drop-shadow-[0_8px_16px_rgba(70,25,35,0.25)] -mt-[6px] transform-gpu">
           <img
             src="./media/scroll-bottom-roller.webp"
             alt="Scroll Bottom Roller"
