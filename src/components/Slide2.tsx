@@ -103,7 +103,7 @@ export const Slide2: React.FC = () => {
               }`}
           >
             {/* Top Group: Arabic Calligraphy & Bismillah Translation */}
-            <div className="flex flex-col items-center w-full pt-1 sm:pt-2">
+            <div className="flex flex-col items-center w-full pt-0 sm:pt-0">
               {/* Arabic Calligraphy (muslim-1785954743405.webp) */}
               <div
                 className={`w-[170px] sm:w-[210px] md:w-[230px] transition-[transform,opacity] duration-700 ease-out transform-gpu will-change-[transform,opacity] ${isOpen
@@ -131,6 +131,20 @@ export const Slide2: React.FC = () => {
 
             {/* Middle Group: Groom & Bride Names */}
             <div className="flex flex-col items-center justify-center my-auto py-1 sm:py-2">
+              {/* Couple's Arabic Names Calligraphy Logo */}
+              <div
+                className={`w-[48px] sm:w-[56px] md:w-[64px] mb-1 sm:mb-1.5 transition-[transform,opacity] duration-700 ease-out transform-gpu will-change-[transform,opacity] ${isOpen
+                  ? 'opacity-100 translate-y-0 delay-[750ms]'
+                  : 'opacity-0 translate-y-3'
+                  }`}
+              >
+                <img
+                  src="./media/couples_arabic_names_logo.png"
+                  alt="Taha & Zainab Calligraphy Logo"
+                  className="w-full h-auto object-contain mx-auto drop-shadow-[0_1px_3px_rgba(100,20,30,0.15)] select-none pointer-events-none"
+                />
+              </div>
+
               {/* Groom: Taha */}
               <h2
                 className={`font-italiana font-normal text-4xl sm:text-5xl md:text-[56px] text-[#531322] tracking-wide leading-tight transition-[transform,opacity] duration-700 ease-out transform-gpu will-change-[transform,opacity] ${isOpen

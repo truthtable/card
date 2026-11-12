@@ -62,7 +62,7 @@ export const Slide1: React.FC<Slide1Props> = ({ animate = true }) => {
 
         {/* 3. Divider Ornament divider.webp */}
         <div
-          className={`w-[220px] sm:w-[280px] md:w-[320px] max-w-[80vw] mb-2 sm:mb-6 origin-center will-change-transform ${animate ? 'anim-text-divider' : 'opacity-0'
+          className={`w-[220px] sm:w-[280px] md:w-[320px] max-w-[80vw] mb-1 sm:mb-3 origin-center will-change-transform ${animate ? 'anim-text-divider' : 'opacity-0'
             }`}
         >
           <img
@@ -72,32 +72,45 @@ export const Slide1: React.FC<Slide1Props> = ({ animate = true }) => {
           />
         </div>
 
+        {/* Couple's Arabic Names Calligraphy Logo */}
+        <div
+          className={`w-[68px] sm:w-[84px] md:w-[96px] my-1 sm:my-2 drop-shadow-[0_2px_6px_rgba(100,20,30,0.18)] will-change-transform transform-gpu ${animate ? 'anim-text-groom' : 'opacity-0'
+            }`}
+        >
+          <img
+            src="./media/couples_arabic_names_logo.png"
+            alt="Taha & Zainab Arabic Calligraphy Logo"
+            className="w-full h-auto object-contain mx-auto select-none pointer-events-none"
+          />
+        </div>
+
         {/* 4. Couple Names & Nikah Invitation */}
         <div className="flex flex-col items-center justify-center space-y-1 sm:space-y-2 mt-0 sm:mt-2">
           {/* Groom Name */}
-          <h1
-            className={`font-italiana font-normal text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-[#531322] tracking-wide drop-shadow-[0_2px_6px_rgba(83,19,34,0.15)] will-change-transform ${animate ? 'anim-text-groom' : 'opacity-0'
-              }`}
-          >
-            Taha
-          </h1>
+          <div className='flex flex-row justify-center items-center'>
+            <h1
+              className={`font-italiana font-normal text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-[#531322] tracking-wide drop-shadow-[0_2px_6px_rgba(83,19,34,0.15)] will-change-transform ${animate ? 'anim-text-groom' : 'opacity-0'
+                }`}
+            >
+              Taha
+            </h1>
 
-          {/* Ampersand */}
-          <span
-            className={`font-light text-1xl sm:text-4xl md:text-5xl text-[#b5812d] drop-shadow-sm my-0 sm:my-1 will-change-transform ${animate ? 'anim-text-ampersand' : 'opacity-0'
-              }`}
-          >
-            &
-          </span>
+            {/* Ampersand */}
+            <span
+              className={`font-light text-2xl sm:text-4xl md:text-5xl text-[#b5812d] drop-shadow-sm my-0 mx-2 sm:my-1 will-change-transform ${animate ? 'anim-text-ampersand' : 'opacity-0'
+                }`}
+            >
+              &
+            </span>
 
-          {/* Bride Name */}
-          <h1
-            className={`font-italiana font-normal text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-[#531322] tracking-wide drop-shadow-[0_2px_6px_rgba(83,19,34,0.15)] will-change-transform ${animate ? 'anim-text-bride' : 'opacity-0'
-              }`}
-          >
-            Zainab
-          </h1>
-
+            {/* Bride Name */}
+            <h1
+              className={`font-italiana font-normal text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-[#531322] tracking-wide drop-shadow-[0_2px_6px_rgba(83,19,34,0.15)] will-change-transform ${animate ? 'anim-text-bride' : 'opacity-0'
+                }`}
+            >
+              Zainab
+            </h1>
+          </div>
           {/* Invitation Line */}
           <p
             className={`font-sans font-medium text-[11px] leading-tight sm:text-[13px] md:text-[14px] uppercase tracking-[0.2em] sm:tracking-[0.24em] text-[#6e2837] pt-4 sm:pt-6 drop-shadow-sm will-change-transform ${animate ? 'anim-text-invite' : 'opacity-0'
