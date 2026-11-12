@@ -253,5 +253,19 @@
   animation: lantern-pulse-glow 4s ease-in-out infinite;
 }
 
+/* Slide 1 Scroll Indicator Bounce */
+@keyframes royal-scroll-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(7px);
+  }
+}
+
+.animate-scroll-bounce {
+  animation: royal-scroll-bounce 1.6s ease-in-out infinite;
+}
+
 
 

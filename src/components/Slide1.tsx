@@ -1,4 +1,5 @@
 import React from 'react';
+import { ChevronDown } from 'lucide-react';
 import { DovesFlight } from './DovesFlight';
 import { RosePetals } from './RosePetals';
 import { SwingingLanterns } from './SwingingLanterns';
@@ -8,6 +9,14 @@ interface Slide1Props {
 }
 
 export const Slide1: React.FC<Slide1Props> = ({ animate = true }) => {
+  const handleScrollClick = () => {
+    const slide2 = document.getElementById('slide2');
+    if (slide2) {
+      slide2.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+    }
+  };
   return (
     <section className="relative w-full min-h-[100svh] overflow-hidden flex flex-col justify-between items-center bg-[#f7ebe4]">
       {/* Background: Desktop and Mobile variants */}
@@ -96,6 +105,23 @@ export const Slide1: React.FC<Slide1Props> = ({ animate = true }) => {
           >
             INVITE YOU TO CELEBRATE THEIR NIKAH
           </p>
+        </div>
+      </div>
+
+      {/* Scroll Indicator */}
+      <div
+        onClick={handleScrollClick}
+        role="button"
+        tabIndex={0}
+        aria-label="Scroll down to invitation"
+        className={`absolute bottom-10 sm:bottom-12 md:bottom-14 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center cursor-pointer select-none group transition-opacity duration-1000 ${animate ? 'opacity-90 hover:opacity-100 delay-[2200ms]' : 'opacity-0 pointer-events-none'
+          }`}
+      >
+        <div className="flex flex-col items-center animate-scroll-bounce">
+          <span className="font-sans font-extrabold text-[20px] sm:text-[11px] md:text-[18px] uppercase tracking-[0.25em] text-[#6e2837] group-hover:text-[#531322] drop-shadow-[0_1px_2px_rgba(255,255,255,0.7)] transition-colors">
+            Scroll
+          </span>
+          <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 text-[#6e2837] group-hover:text-[#531322] drop-shadow-[0_1px_2px_rgba(255,255,255,0.7)] transition-colors stroke-[2.5] -mt-0.5" />
         </div>
       </div>
 
