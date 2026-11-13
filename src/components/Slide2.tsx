@@ -117,10 +117,10 @@ export const Slide2: React.FC = () => {
                   className="w-full h-auto object-contain mx-auto drop-shadow-[0_1px_3px_rgba(100,20,30,0.18)]"
                 />
               </div>
-              <span className='mt-[10px]'>Masuma & Mohammad Quettawala</span>
+              <span className='mt-[5px] leading-tight'>Masuma & Mohammad Quettawala</span>
               {/* Cordially Request Invitation Text */}
               <p
-                className={`italic font-normal leading-tight text-[12px] sm:text-[13.5px] mx-10 md:text-[14.5px] text-[#6d2535] leading-relaxed max-w-[290px] sm:max-w-[340px] mt-3 sm:mt-4 transition-[transform,opacity] duration-700 ease-out transform-gpu will-change-[transform,opacity] ${isOpen
+                className={`italic font-normal leading-tight text-[12px] sm:text-[13.5px] mx-10 md:text-[14.5px] text-[#6d2535] max-w-[290px] sm:max-w-[340px] mt-2 sm:mt-2 transition-[transform,opacity] duration-700 ease-out transform-gpu will-change-[transform,opacity] ${isOpen
                   ? 'opacity-100 translate-y-0 delay-[700ms]'
                   : 'opacity-0 translate-y-4'
                   }`}
@@ -157,7 +157,7 @@ export const Slide2: React.FC = () => {
 
               {/* Ampersand / and */}
               <span
-                className={`italic text-xl sm:text-2xl md:text-3xl text-[#842a3b] my-0.5 sm:my-1 transition-[transform,opacity] duration-600 ease-out transform-gpu will-change-[transform,opacity] ${isOpen
+                className={`italic text-xl sm:text-2xl md:text-3xl -mt-2 text-[#842a3b] my-0 sm:my-0 transition-[transform,opacity] duration-600 ease-out transform-gpu will-change-[transform,opacity] ${isOpen
                   ? 'opacity-100 scale-100 delay-[950ms]'
                   : 'opacity-0 scale-75'
                   }`}
@@ -167,7 +167,7 @@ export const Slide2: React.FC = () => {
 
               {/* Bride: Zainab */}
               <h2
-                className={`font-italiana font-normal text-4xl sm:text-5xl md:text-[56px] text-[#531322] tracking-wide leading-tight transition-[transform,opacity] duration-700 ease-out transform-gpu will-change-[transform,opacity] ${isOpen
+                className={`font-italiana font-normal -mt-2 pt-0 text-4xl sm:text-5xl md:text-[56px] text-[#531322] tracking-wide leading-tight transition-[transform,opacity] duration-700 ease-out transform-gpu will-change-[transform,opacity] ${isOpen
                   ? 'opacity-100 translate-y-0 delay-[1050ms]'
                   : 'opacity-0 translate-y-4'
                   }`}
@@ -184,7 +184,10 @@ export const Slide2: React.FC = () => {
               >
                 Daughter of
               </p>
-              <span>
+              <span className={`transition-[transform,opacity] duration-700 ease-out transform-gpu will-change-[transform,opacity] ${isOpen
+                ? 'opacity-100 translate-y-0 delay-[1150ms]'
+                : 'opacity-0 translate-y-3'
+                }`}>
                 Rashida & Najmuddin<br />Tinwala
               </span>
             </div>

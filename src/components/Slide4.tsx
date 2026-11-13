@@ -186,7 +186,7 @@ const ScratchCardItem: React.FC<ScratchCardItemProps> = ({
       ctx.fillStyle = '#4e300f';
 
       const lineSpacing = titleSize * 1.35;
-      const allLines = ['Scratch To Reveal', ...subtitles];
+      const allLines = ['Scratch To Reveal'];
       const totalHeight = (allLines.length - 1) * lineSpacing;
       const startY = height / 2 - totalHeight / 2;
 
@@ -352,22 +352,20 @@ const ScratchCardItem: React.FC<ScratchCardItemProps> = ({
 
           {/* Number (27 or 28) */}
           <h3
-            className={`font-italiana ${
-              isCompact
-                ? 'text-3xl xs:text-4xl sm:text-5xl md:text-5xl lg:text-6xl'
-                : 'text-4xl xs:text-5xl sm:text-6xl md:text-7xl'
-            } font-normal text-[#531322] leading-none my-0.5 sm:my-1 drop-shadow-sm`}
+            className={`font-italiana ${isCompact
+              ? 'text-3xl xs:text-4xl sm:text-5xl md:text-5xl lg:text-6xl'
+              : 'text-4xl xs:text-5xl sm:text-6xl md:text-7xl'
+              } font-normal text-[#531322] leading-none my-0.5 sm:my-1 drop-shadow-sm`}
           >
             {dayNumber}
           </h3>
 
           {/* Month and Year */}
           <span
-            className={`font-cormorant ${
-              isCompact
-                ? 'text-sm xs:text-base sm:text-lg md:text-xl'
-                : 'text-base xs:text-lg sm:text-xl md:text-2xl'
-            } font-semibold text-[#612130] tracking-wide`}
+            className={`font-cormorant ${isCompact
+              ? 'text-sm xs:text-base sm:text-lg md:text-xl'
+              : 'text-base xs:text-lg sm:text-xl md:text-2xl'
+              } font-semibold text-[#612130] tracking-wide`}
           >
             {monthYear}
           </span>
@@ -398,9 +396,8 @@ const ScratchCardItem: React.FC<ScratchCardItemProps> = ({
         <canvas
           ref={canvasRef}
           data-lenis-prevent
-          className={`absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing transition-opacity duration-700 touch-none ${
-            isRevealed ? 'opacity-0 pointer-events-none' : 'opacity-100 z-20'
-          }`}
+          className={`absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing transition-opacity duration-700 touch-none ${isRevealed ? 'opacity-0 pointer-events-none' : 'opacity-100 z-20'
+            }`}
           onMouseDown={handlePointerDown}
           onMouseMove={handlePointerMove}
           onMouseUp={handlePointerUp}
@@ -639,9 +636,8 @@ export const Slide4: React.FC = () => {
 
       {/* Main Content Container */}
       <div
-        className={`relative z-20 flex flex-col items-center text-center max-w-5xl mx-auto w-full my-auto transition-all duration-1000 ease-out ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-        }`}
+        className={`relative z-20 flex flex-col items-center text-center max-w-5xl mx-auto w-full my-auto transition-all duration-1000 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+          }`}
       >
         {/* Header Texts */}
         <p className="font-script text-2xl sm:text-3xl md:text-4xl text-[#bd8c37] drop-shadow-sm mb-0.5 sm:mb-1">
@@ -668,8 +664,8 @@ export const Slide4: React.FC = () => {
                 dayName="Friday"
                 dayNumber="27"
                 monthYear="November 2026"
-                scratchSubtitle={['Rasmo Ka Rang', 'Reception Ceremony']}
-                eventSubtitle={['Rasmo Ka Rang', 'Reception Ceremony']}
+                scratchSubtitle={['', '']}
+                eventSubtitle={['', '']}
                 isRevealed={isRevealed27}
                 onReveal={revealCard27}
                 isCompact
@@ -682,8 +678,8 @@ export const Slide4: React.FC = () => {
                 dayName="Saturday"
                 dayNumber="28"
                 monthYear="November 2026"
-                scratchSubtitle="Our Nikah Date"
-                eventSubtitle="Nikah Ceremony"
+                scratchSubtitle=""
+                eventSubtitle=""
                 isRevealed={isRevealed28}
                 onReveal={revealCard28}
                 isCompact
@@ -697,7 +693,7 @@ export const Slide4: React.FC = () => {
               dayName="Saturday"
               dayNumber="28"
               monthYear="November 2026"
-              scratchSubtitle="Our Nikah Date"
+              scratchSubtitle=""
               isRevealed={isRevealed28}
               onReveal={revealCard28}
             />

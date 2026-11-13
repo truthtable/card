@@ -61,12 +61,26 @@ export const Slide8: React.FC = () => {
         </p>
 
         {/* Couple's Arabic Names Calligraphy Logo */}
-        <div className="w-14 sm:w-16 md:w-20 my-1 drop-shadow-[0_2px_6px_rgba(100,20,30,0.18)]">
+        {/* <div className="w-14 sm:w-16 md:w-20 my-1 drop-shadow-[0_2px_6px_rgba(100,20,30,0.18)]">
           <img
             src="./media/couples_arabic_names_logo.png"
             alt="Taha & Zainab Arabic Calligraphy"
             className="w-full h-auto object-contain mx-auto select-none pointer-events-none"
           />
+        </div> */}
+
+        {/* 3. Wax Seal Badge with "T & Z" */}
+        <div className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 my-1 sm:my-1.5 transition-transform duration-500 hover:scale-105">
+          <img
+            src="./media/Seal-Badge.webp"
+            alt="Royal Wax Seal"
+            className="w-full h-full object-contain filter drop-shadow-[0_4px_10px_rgba(90,15,25,0.4)] pointer-events-none select-none"
+          />
+          <div className="absolute inset-0 flex items-center justify-center pb-0.5">
+            <span className="font-cinzel font-bold text-[10px] sm:text-xs md:text-sm text-[#fff6e6] tracking-wider drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] select-none">
+              T &amp; Z
+            </span>
+          </div>
         </div>
 
         {/* 4. Couple Names */}
@@ -103,20 +117,6 @@ export const Slide8: React.FC = () => {
         <p className="font-cormorant font-semibold text-xs sm:text-sm text-[#9c6d3b] tracking-[0.18em] uppercase mt-2 drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]">
           28th November 2026
         </p>
-
-        {/* 3. Wax Seal Badge with "T & Z" */}
-        <div className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 my-1 sm:my-1.5 transition-transform duration-500 hover:scale-105">
-          <img
-            src="./media/Seal-Badge.webp"
-            alt="Royal Wax Seal"
-            className="w-full h-full object-contain filter drop-shadow-[0_4px_10px_rgba(90,15,25,0.4)] pointer-events-none select-none"
-          />
-          <div className="absolute inset-0 flex items-center justify-center pb-0.5">
-            <span className="font-cinzel font-bold text-[10px] sm:text-xs md:text-sm text-[#fff6e6] tracking-wider drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] select-none">
-              T &amp; Z
-            </span>
-          </div>
-        </div>
 
         {/* 11. Subtle Heart Accents */}
         <div className="flex items-center justify-center gap-2 mt-1.5 text-[#6b1d2e]/70 text-xs sm:text-sm animate-pulse">

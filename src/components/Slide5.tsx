@@ -35,12 +35,12 @@ const EVENTS: EventItem[] = [
     dayNumber: '27',
     monthYear: 'NOVEMBER 2026',
     weekday: 'Friday',
-    dateDisplay: '27 NOVEMBER 2026',
+    dateDisplay: '27 NOV 2026',
     startDateIso: '2026-11-27T09:00:00',
     endDateIso: '2026-11-27T22:30:00',
     icsStart: '20261127T090000',
     icsEnd: '20261127T223000',
-    location: 'The Heritage Royal Palace & Gardens',
+    location: 'Raj Farms & Stays',
     description: 'Join us as we celebrate this special occasion together. Rasmo Ka Rang celebrations for Taha & Zainab wedding.\n\nSchedule:\n• 9:00 AM — Mehendi\n• 11:00 AM — Katho Kutva Ni Rasam\n• Magrib Ni Namaz Baad — Varghodo\n• 8:00 PM — Darees',
     schedule: [
       { time: '09:00 AM', title: 'Mehendi' },
@@ -58,12 +58,12 @@ const EVENTS: EventItem[] = [
     dayNumber: '28',
     monthYear: 'NOVEMBER 2026',
     weekday: 'Saturday',
-    dateDisplay: '28 NOVEMBER 2026',
+    dateDisplay: '28 NOV 2026',
     startDateIso: '2026-11-28T10:00:00',
     endDateIso: '2026-11-28T23:00:00',
     icsStart: '20261128T100000',
     icsEnd: '20261128T230000',
-    location: 'Grand Imperial Ballroom & Palace',
+    location: 'Raj Farms & Stays',
     description: 'Join us as we celebrate this special occasion together. The Great Wedding Game Carnival & Reception for Taha & Zainab wedding.\n\nSchedule:\n• 10:00 AM — Games Carnival\n• 7:00 PM — Reception',
     schedule: [
       { time: '10:00 AM', title: 'Games Carnival' },
@@ -72,7 +72,22 @@ const EVENTS: EventItem[] = [
   },
 ];
 
+const checkIsInvitation = (): boolean => {
+  if (typeof window === 'undefined') return false;
+  const path = window.location.pathname.toLowerCase();
+  const hash = window.location.hash.toLowerCase();
+  const search = window.location.search.toLowerCase();
+  return (
+    path.includes('/invitation') ||
+    path.includes('invitation') ||
+    hash.includes('/invitation') ||
+    hash.includes('invitation') ||
+    search.includes('invitation')
+  );
+};
+
 export const Slide5: React.FC = () => {
+  const [isInvitation, setIsInvitation] = useState<boolean>(checkIsInvitation);
   const sectionRef = useRef<HTMLElement | null>(null);
   const event1Ref = useRef<HTMLDivElement | null>(null);
   const event2Ref = useRef<HTMLDivElement | null>(null);
@@ -94,6 +109,20 @@ export const Slide5: React.FC = () => {
   // Calendar Modal state
   const [activeEvent, setActiveEvent] = useState<EventItem | null>(null);
   const [copied, setCopied] = useState<boolean>(false);
+
+  // Monitor URL changes
+  useEffect(() => {
+    const handleUrlChange = () => {
+      setIsInvitation(checkIsInvitation());
+    };
+
+    window.addEventListener('popstate', handleUrlChange);
+    window.addEventListener('hashchange', handleUrlChange);
+    return () => {
+      window.removeEventListener('popstate', handleUrlChange);
+      window.removeEventListener('hashchange', handleUrlChange);
+    };
+  }, []);
 
   // Scroll direction detection and center viewport car tracking
   useEffect(() => {
@@ -178,7 +207,7 @@ export const Slide5: React.FC = () => {
     handleScroll();
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isInvitation]);
 
 
   // Calendar handlers
@@ -349,170 +378,172 @@ export const Slide5: React.FC = () => {
           {/* ========================================================= */}
           {/* EVENT 1 ROW: Frame on Left, Date 27 on Right             */}
           {/* ========================================================= */}
-          <div
-            ref={event1Ref}
-            className="relative w-full flex items-center justify-between"
-          >
-            {/* Center Golden Circle Node on Line */}
+          {isInvitation && (
             <div
-              ref={dot1Ref}
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none will-change-transform"
-              style={{
-                opacity: 0.35 + 0.65 * progress1,
-                transform: `translate(-50%, -50%) scale(${(0.75 + 0.25 * progress1).toFixed(3)})`,
-              }}
+              ref={event1Ref}
+              className="relative w-full flex items-center justify-"
             >
-              <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 border-[#c99a4e] bg-[#fbf5eb] shadow-[0_0_8px_rgba(201,154,78,0.5)] flex items-center justify-center">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#9e6e29]" />
-              </div>
-            </div>
-
-            {/* Left Column: Event 1 Scroll Frame & Schedule Card */}
-            <div
-              className="w-[48%] md:w-[45%] flex flex-col items-end pr-1.5 xs:pr-3 sm:pr-8 md:pr-12 will-change-transform"
-              style={{
-                opacity: Math.max(0.25, progress1),
-                transform: `translateX(${(-28 * (1 - progress1)).toFixed(1)}px) scale(${(0.95 + 0.05 * progress1).toFixed(3)})`,
-                pointerEvents: 'auto',
-              }}
-            >
-              <div className="relative w-full max-w-[270px] xs:max-w-[310px] sm:max-w-[360px] md:max-w-[400px] lg:max-w-[430px] drop-shadow-[0_12px_28px_rgba(90,40,20,0.22)]">
-                {/* Frame Image */}
-                <img
-                  src="./media/Wedding-Frame.webp"
-                  alt="Wedding Frame"
-                  className="w-full h-auto object-contain select-none pointer-events-none"
-                />
-
-                {/* Inner Content Area overlaid exactly on the fabric scroll */}
-                <div className="absolute top-[17%] bottom-[20%] left-[13%] right-[13%] flex flex-col items-center justify-evenly text-center py-1">
-                  {/* Badge */}
-                  <span className="font-cinzel mt-2 text-[8.5px] xs:text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.22em] font-semibold text-[#8b5a2b]">
-                    {EVENTS[0].badge}
-                  </span>
-
-                  {/* Event Title */}
-                  <div className="py-0.5">
-                    {EVENTS[0].titleLines.map((line, idx) => (
-                      <h3
-                        key={idx}
-                        className="font-cinzel text-[9px] xs:text-[12.5px] sm:text-base md:text-[20px] lg:text-[22px] font-bold text-[#621626] leading-tight tracking-wide drop-shadow-sm uppercase"
-                      >
-                        {line}
-                      </h3>
-                    ))}
-                  </div>
-
-                  {/* Subtitle Message */}
-                  <p className="italic text-[6px] xs:text-[9.5px] sm:text-xs text-[#7a4855] tracking-wider leading-tight max-w-[240px] line-clamp-2 sm:line-clamp-none font-medium uppercase sm:normal-case px-0.5">
-                    {EVENTS[0].subtitle}
-                  </p>
-
-                  {/* Ornamental Diamond Divider */}
-                  <div className="flex items-center gap-1 opacity-75 my-0.5">
-                    <span className="w-2.5 sm:w-5 h-[0.5px] bg-[#b88628]" />
-                    <span className="text-[7.5px] sm:text-[10px] text-[#b88628]">❖</span>
-                    <span className="w-2.5 sm:w-5 h-[0.5px] bg-[#b88628]" />
-                  </div>
-
-                  {/* Date line with Icon */}
-                  <div className="flex items-center gap-1 text-[#5e1927]">
-                    <Calendar className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-[#9a6b32] shrink-0" />
-                    <span className="font-cinzel text-[8.5px] xs:text-[10px] sm:text-xs md:text-sm font-semibold tracking-wider whitespace-nowrap">
-                      {EVENTS[0].dateDisplay}
-                    </span>
-                  </div>
-
-                  {/* Location Icon Indicator */}
-                  <div className="flex mb-4 items-center justify-center gap-1 text-[#8b5a2b] opacity-90 text-[7.5px] xs:text-[9px] sm:text-[10px] px-1">
-                    <MapPin className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#9a6b32] shrink-0" />
-                    <span className="font-sans text-start max-w-[120px] xs:max-w-[145px] sm:max-w-[180px]">
-                      {EVENTS[0].location}
-                    </span>
-                  </div>
+              {/* Center Golden Circle Node on Line */}
+              <div
+                ref={dot1Ref}
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none will-change-transform"
+                style={{
+                  opacity: 0.35 + 0.65 * progress1,
+                  transform: `translate(-50%, -50%) scale(${(0.75 + 0.25 * progress1).toFixed(3)})`,
+                }}
+              >
+                <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 border-[#c99a4e] bg-[#fbf5eb] shadow-[0_0_8px_rgba(201,154,78,0.5)] flex items-center justify-center">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#9e6e29]" />
                 </div>
               </div>
 
-              {/* Extended Schedule Area: 27 November 2026 Itinerary */}
-              <div className="w-full max-w-[270px] xs:max-w-[310px] sm:max-w-[360px] md:max-w-[400px] lg:max-w-[430px] mt-1.5 sm:mt-2.5 p-2 xs:p-2.5 sm:p-4 rounded-xl sm:rounded-2xl bg-gradient-to-b from-[#fffefc]/95 via-[#faf3e7]/95 to-[#f6ecdc]/95 border-2 border-[#d4aa5c]/60 shadow-[0_8px_24px_rgba(100,45,25,0.08)] backdrop-blur-sm relative overflow-hidden">
-                {/* Subtle corner diamond accents */}
-                <span className="absolute top-1.5 left-2 text-[8px] text-[#c99a4e]/40 select-none pointer-events-none">❖</span>
-                <span className="absolute top-1.5 right-2 text-[8px] text-[#c99a4e]/40 select-none pointer-events-none">❖</span>
-                <span className="absolute bottom-1.5 left-2 text-[8px] text-[#c99a4e]/40 select-none pointer-events-none">❖</span>
-                <span className="absolute bottom-1.5 right-2 text-[8px] text-[#c99a4e]/40 select-none pointer-events-none">❖</span>
+              {/* Left Column: Event 1 Scroll Frame & Schedule Card */}
+              <div
+                className="w-[48%] md:w-[45%] flex flex-col items-end pr-1.5 xs:pr-3 sm:pr-8 md:pr-12 will-change-transform"
+                style={{
+                  opacity: Math.max(0.25, progress1),
+                  transform: `translateX(${(-28 * (1 - progress1)).toFixed(1)}px) scale(${(0.95 + 0.05 * progress1).toFixed(3)})`,
+                  pointerEvents: 'auto',
+                }}
+              >
+                <div className="relative w-full max-w-[270px] xs:max-w-[310px] sm:max-w-[360px] md:max-w-[400px] lg:max-w-[430px] drop-shadow-[0_12px_28px_rgba(90,40,20,0.22)]">
+                  {/* Frame Image */}
+                  <img
+                    src="./media/Wedding-Frame.webp"
+                    alt="Wedding Frame"
+                    className="w-full h-auto object-contain select-none pointer-events-none"
+                  />
 
-                {/* Card Header */}
-                <div className="flex items-center justify-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2.5">
-                  <span className="w-3 sm:w-8 h-[0.5px] bg-[#cca66b]" />
-                  <span className="font-cinzel text-[8.5px] xs:text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-[#8b5a2b]">
-                    Celebration Schedule
-                  </span>
-                  <span className="w-3 sm:w-8 h-[0.5px] bg-[#cca66b]" />
-                </div>
+                  {/* Inner Content Area overlaid exactly on the fabric scroll */}
+                  <div className="absolute top-[15%] bottom-[15%] sm:top-[17%] sm:bottom-[20%] left-[12%] right-[12%] sm:left-[13%] sm:right-[13%] flex flex-col items-center justify-center gap-0.5 xs:gap-1 sm:gap-0 sm:justify-evenly text-center py-0 sm:py-1">
+                    {/* Badge */}
+                    <span className="font-cinzel text-[8.5px] xs:text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.22em] font-semibold text-[#8b5a2b] mt-0 sm:mt-2">
+                      {EVENTS[0].badge}
+                    </span>
 
-                {/* Itinerary List */}
-                <div className="space-y-1 sm:space-y-2">
-                  {EVENTS[0].schedule.map((entry, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center justify-between gap-1 xs:gap-2 px-2 xs:px-2.5 sm:px-3 py-1 xs:py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-[#fffefc]/85 hover:bg-[#fffdf8] border border-[#dfcaab]/70 shadow-[0_1px_3px_rgba(100,50,20,0.04)] transition-colors"
-                    >
-                      <div className="flex items-center gap-1 xs:gap-1.5 sm:gap-2 min-w-0">
-                        <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-[#b88628] flex-shrink-0" />
-                        <span className="font-cinzel text-[9.5px] xs:text-[11px] sm:text-xs md:text-sm font-bold text-[#621626] tracking-tight truncate">
-                          {entry.title}
-                        </span>
-                      </div>
-                      <span className="font-cinzel text-[8px] xs:text-[9.5px] sm:text-[11px] md:text-xs font-semibold text-[#8b5a2b] tracking-wider whitespace-nowrap bg-[#fbf5eb] px-1.5 xs:px-2 py-0.5 rounded border border-[#dfcaab]/60 flex-shrink-0">
-                        {entry.time}
+                    {/* Event Title */}
+                    <div className="py-0 sm:py-0.5">
+                      {EVENTS[0].titleLines.map((line, idx) => (
+                        <h3
+                          key={idx}
+                          className="font-cinzel text-[9px] xs:text-[12.5px] sm:text-base md:text-[20px] lg:text-[22px] font-bold text-[#621626] leading-tight tracking-wide drop-shadow-sm uppercase"
+                        >
+                          {line}
+                        </h3>
+                      ))}
+                    </div>
+
+                    {/* Subtitle Message */}
+                    <p className="italic text-[6px] xs:text-[9.5px] sm:text-xs text-[#7a4855] tracking-wider leading-tight max-w-[240px] line-clamp-2 sm:line-clamp-none font-medium uppercase sm:normal-case px-0.5 my-0">
+                      {EVENTS[0].subtitle}
+                    </p>
+
+                    {/* Ornamental Diamond Divider */}
+                    <div className="flex items-center gap-1 opacity-75 my-0 sm:my-0.5">
+                      <span className="w-2.5 sm:w-5 h-[0.5px] bg-[#b88628]" />
+                      <span className="text-[7.5px] sm:text-[10px] text-[#b88628]">❖</span>
+                      <span className="w-2.5 sm:w-5 h-[0.5px] bg-[#b88628]" />
+                    </div>
+
+                    {/* Date line with Icon */}
+                    <div className="flex items-center gap-1 text-[#5e1927]">
+                      <Calendar className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-[#9a6b32] shrink-0" />
+                      <span className="font-cinzel text-[8.5px] xs:text-[10px] sm:text-xs md:text-sm font-semibold tracking-wider whitespace-nowrap">
+                        {EVENTS[0].dateDisplay}
                       </span>
                     </div>
-                  ))}
+
+                    {/* Location Icon Indicator */}
+                    <div className="flex items-center justify-center gap-1 text-[#8b5a2b] opacity-90 text-[7.5px] xs:text-[9px] sm:text-[10px] px-1 mb-0 sm:mb-4">
+                      <MapPin className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#9a6b32] shrink-0" />
+                      <span className="font-sans text-center max-w-[130px] xs:max-w-[145px] sm:max-w-[180px] leading-tight">
+                        {EVENTS[0].location}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Extended Schedule Area: 27 November 2026 Itinerary */}
+                <div className="w-full max-w-[270px] xs:max-w-[310px] sm:max-w-[360px] md:max-w-[400px] lg:max-w-[430px] mt-1.5 sm:mt-2.5 p-2 xs:p-2.5 sm:p-4 rounded-xl sm:rounded-2xl bg-gradient-to-b from-[#fffefc]/95 via-[#faf3e7]/95 to-[#f6ecdc]/95 border-2 border-[#d4aa5c]/60 shadow-[0_8px_24px_rgba(100,45,25,0.08)] backdrop-blur-sm relative overflow-hidden">
+                  {/* Subtle corner diamond accents */}
+                  <span className="absolute top-1.5 left-2 text-[8px] text-[#c99a4e]/40 select-none pointer-events-none">❖</span>
+                  <span className="absolute top-1.5 right-2 text-[8px] text-[#c99a4e]/40 select-none pointer-events-none">❖</span>
+                  <span className="absolute bottom-1.5 left-2 text-[8px] text-[#c99a4e]/40 select-none pointer-events-none">❖</span>
+                  <span className="absolute bottom-1.5 right-2 text-[8px] text-[#c99a4e]/40 select-none pointer-events-none">❖</span>
+
+                  {/* Card Header */}
+                  <div className="flex items-center justify-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2.5">
+                    <span className="w-3 sm:w-8 h-[0.5px] bg-[#cca66b]" />
+                    <span className="font-cinzel text-[8.5px] xs:text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-[#8b5a2b]">
+                      Celebration Schedule
+                    </span>
+                    <span className="w-3 sm:w-8 h-[0.5px] bg-[#cca66b]" />
+                  </div>
+
+                  {/* Itinerary List */}
+                  <div className="space-y-1 sm:space-y-2">
+                    {EVENTS[0].schedule.map((entry, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-center justify-between gap-1 xs:gap-2 px-2 xs:px-2.5 sm:px-3 py-1 xs:py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-[#fffefc]/85 hover:bg-[#fffdf8] border border-[#dfcaab]/70 shadow-[0_1px_3px_rgba(100,50,20,0.04)] transition-colors"
+                      >
+                        <div className="flex items-center gap-1 xs:gap-1.5 sm:gap-2 min-w-0">
+                          <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-[#b88628] flex-shrink-0" />
+                          <span className="font-cinzel text-[9.5px] xs:text-[11px] sm:text-xs md:text-sm font-bold text-[#621626] tracking-tight">
+                            {entry.title}
+                          </span>
+                        </div>
+                        <span className="font-cinzel text-[8px] xs:text-[9.5px] sm:text-[11px] md:text-xs font-semibold text-[#8b5a2b] tracking-wider whitespace-nowrap bg-[#fbf5eb] px-1.5 xs:px-2 py-0.5 rounded border border-[#dfcaab]/60 flex-shrink-0">
+                          {entry.time}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                {/* Add To Calendar Button */}
+                <div className="w-full max-w-[270px] xs:max-w-[310px] sm:max-w-[360px] md:max-w-[400px] lg:max-w-[430px] flex justify-center mt-2.5 sm:mt-3.5 mb-0.5 sm:mb-1">
+                  <button
+                    onClick={() => setActiveEvent(EVENTS[0])}
+                    className="group relative border border-[#cca66b] bg-gradient-to-b from-[#fffefc] to-[#f7eedf] text-[#621626] hover:bg-[#fff7ea] hover:border-[#8b233a] hover:text-[#450915] shadow-[0_2px_8px_rgba(180,130,50,0.18)] rounded-full px-3.5 xs:px-4 sm:px-5 md:px-6 py-1.5 sm:py-2 flex items-center justify-center gap-1.5 sm:gap-2 text-[8px] xs:text-[9.5px] sm:text-[11px] md:text-xs font-cinzel font-bold tracking-[0.14em] uppercase transition-all duration-200 active:scale-95 cursor-pointer touch-manipulation"
+                  >
+                    <CalendarPlus className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#946124] group-hover:scale-110 transition-transform shrink-0" />
+                    <span>ADD TO CALENDAR</span>
+                  </button>
                 </div>
               </div>
-              {/* Add To Calendar Button */}
-              <div className="w-full max-w-[270px] xs:max-w-[310px] sm:max-w-[360px] md:max-w-[400px] lg:max-w-[430px] flex justify-center mt-2.5 sm:mt-3.5 mb-0.5 sm:mb-1">
-                <button
-                  onClick={() => setActiveEvent(EVENTS[0])}
-                  className="group relative border border-[#cca66b] bg-gradient-to-b from-[#fffefc] to-[#f7eedf] text-[#621626] hover:bg-[#fff7ea] hover:border-[#8b233a] hover:text-[#450915] shadow-[0_2px_8px_rgba(180,130,50,0.18)] rounded-full px-3.5 xs:px-4 sm:px-5 md:px-6 py-1.5 sm:py-2 flex items-center justify-center gap-1.5 sm:gap-2 text-[8px] xs:text-[9.5px] sm:text-[11px] md:text-xs font-cinzel font-bold tracking-[0.14em] uppercase transition-all duration-200 active:scale-95 cursor-pointer touch-manipulation"
-                >
-                  <CalendarPlus className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#946124] group-hover:scale-110 transition-transform shrink-0" />
-                  <span>ADD TO CALENDAR</span>
-                </button>
+
+              {/* Right Column: Date 27 Display */}
+              <div
+                className="w-[48%] md:w-[45%] flex flex-col items-start justify-center pl-6 xs:pl-3 sm:pl-8 md:pl-12 will-change-transform"
+                style={{
+                  opacity: Math.max(0.25, progress1),
+                  transform: `translateX(${(28 * (1 - progress1)).toFixed(1)}px) scale(${(0.95 + 0.05 * progress1).toFixed(3)})`,
+                }}
+              >
+                <span className="font-cinzel text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-[100px] font-normal text-[#ad8248] tracking-tight leading-none drop-shadow-[0_2px_4px_rgba(173,130,72,0.18)]">
+                  {EVENTS[0].dayNumber}
+                </span>
+                <span className="font-cinzel text-[9px] xs:text-[10.5px] sm:text-xs md:text-sm tracking-[0.22em] font-medium text-[#ad8248] uppercase mt-1 sm:mt-2">
+                  {EVENTS[0].monthYear}
+                </span>
+                <span className="font-script text-xl xs:text-2xl sm:text-3xl md:text-4xl text-[#bd9254] mt-0.5">
+                  {EVENTS[0].weekday}
+                </span>
               </div>
             </div>
-
-            {/* Right Column: Date 27 Display */}
-            <div
-              className="w-[48%] md:w-[45%] flex flex-col items-start justify-center pl-6 xs:pl-3 sm:pl-8 md:pl-12 will-change-transform"
-              style={{
-                opacity: Math.max(0.25, progress1),
-                transform: `translateX(${(28 * (1 - progress1)).toFixed(1)}px) scale(${(0.95 + 0.05 * progress1).toFixed(3)})`,
-              }}
-            >
-              <span className="font-cinzel text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-[100px] font-normal text-[#ad8248] tracking-tight leading-none drop-shadow-[0_2px_4px_rgba(173,130,72,0.18)]">
-                {EVENTS[0].dayNumber}
-              </span>
-              <span className="font-cinzel text-[9px] xs:text-[10.5px] sm:text-xs md:text-sm tracking-[0.22em] font-medium text-[#ad8248] uppercase mt-1 sm:mt-2">
-                {EVENTS[0].monthYear}
-              </span>
-              <span className="font-script text-xl xs:text-2xl sm:text-3xl md:text-4xl text-[#bd9254] mt-0.5">
-                {EVENTS[0].weekday}
-              </span>
-            </div>
-          </div>
+          )}
 
           {/* ========================================================= */}
           {/* EVENT 2 ROW: Date 28 on Left, Frame on Right             */}
           {/* ========================================================= */}
           <div
             ref={event2Ref}
-            className="relative w-full flex items-center justify-between"
+            className="relative w-full flex items-center justify-center"
           >
             {/* Center Golden Circle Node on Line */}
             <div
               ref={dot2Ref}
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none will-change-transform"
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none will-change-transform justify-center gap-0"
               style={{
                 opacity: 0.35 + 0.65 * progress2,
                 transform: `translate(-50%, -50%) scale(${(0.75 + 0.25 * progress2).toFixed(3)})`,
@@ -560,14 +591,14 @@ export const Slide5: React.FC = () => {
                 />
 
                 {/* Inner Content Area overlaid on scroll parchment */}
-                <div className="absolute top-[17%] bottom-[20%] left-[13%] right-[13%] flex flex-col px-1 items-center justify-evenly text-center py-1">
+                <div className="absolute -mt-3 top-[14%] bottom-[15%] sm:top-[17%] sm:bottom-[20%] left-[12%] right-[12%] sm:left-[13%] sm:right-[13%] flex flex-col px-1 items-center justify-center gap-0 xs:gap-0 sm:gap-0 text-center py-0 sm:py-1">
                   {/* Badge */}
-                  <span className="font-cinzel mt-2 text-[8.5px] xs:text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.22em] font-semibold text-[#8b5a2b]">
+                  <span className="font-cinzel text-[8.5px] xs:text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.22em] font-semibold text-[#8b5a2b] mt-0 sm:mt-2">
                     {EVENTS[1].badge}
                   </span>
 
                   {/* Event Title */}
-                  <div className="py-0.5">
+                  <div className="py-0 sm:py-0">
                     {EVENTS[1].titleLines.map((line, idx) => (
                       <h3
                         key={idx}
@@ -578,15 +609,17 @@ export const Slide5: React.FC = () => {
                     ))}
                   </div>
 
-                  <div className="py-0.5"> <span>{EVENTS[1].extraTitle}</span></div>
+                  {EVENTS[1].extraTitle && (
+                    <span className="font-serif text-[9.5px] sm:text-sm text-[#621626] font-semibold">{EVENTS[1].extraTitle}</span>
+                  )}
 
                   {/* Subtitle Message */}
-                  <p className=" italic text-[6px] xs:text-[9.5px] sm:text-xs text-[#7a4855] leading-tight mx-2 max-w-[240px] line-clamp-2 sm:line-clamp-none font-medium uppercase sm:normal-case px-0.5">
+                  <p className="italic text-[6px] xs:text-[9.5px] sm:text-xs text-[#7a4855] leading-tight mx-2 max-w-[240px] line-clamp-2 sm:line-clamp-none font-medium uppercase sm:normal-case px-0.5 my-0">
                     {EVENTS[1].subtitle}
                   </p>
 
                   {/* Ornamental Diamond Divider */}
-                  <div className="flex items-center gap-1 opacity-75 my-0.5">
+                  <div className="flex items-center gap-1 opacity-75 my-0 sm:my-0.5">
                     <span className="w-2.5 sm:w-5 h-[0.5px] bg-[#b88628]" />
                     <span className="text-[7.5px] sm:text-[10px] text-[#b88628]">❖</span>
                     <span className="w-2.5 sm:w-5 h-[0.5px] bg-[#b88628]" />
@@ -601,9 +634,9 @@ export const Slide5: React.FC = () => {
                   </div>
 
                   {/* Location Icon Indicator */}
-                  <div className="flex mb-4 items-center justify-center gap-1 text-[#8b5a2b] opacity-90 text-[7.5px] xs:text-[9px] sm:text-[10px] px-1">
+                  <div className="flex items-center justify-center gap-1 text-[#8b5a2b] opacity-90 text-[7.5px] xs:text-[9px] sm:text-[10px] px-1 mb-0 sm:mb-4">
                     <MapPin className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#9a6b32] shrink-0" />
-                    <span className="font-sans text-start max-w-[120px] xs:max-w-[145px] sm:max-w-[180px]">
+                    <span className="font-sans text-center max-w-[130px] xs:max-w-[145px] sm:max-w-[180px] leading-tight">
                       {EVENTS[1].location}
                     </span>
                   </div>
@@ -636,7 +669,7 @@ export const Slide5: React.FC = () => {
                     >
                       <div className="flex items-center gap-1 xs:gap-1.5 sm:gap-2 min-w-0">
                         <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-[#b88628] flex-shrink-0" />
-                        <span className="font-cinzel text-[9.5px] xs:text-[11px] sm:text-xs md:text-sm font-bold text-[#621626] tracking-tight truncate">
+                        <span className="font-cinzel text-[9.5px] xs:text-[11px] sm:text-xs md:text-sm font-bold text-[#621626] tracking-tight">
                           {entry.title}
                         </span>
                       </div>
