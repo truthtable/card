@@ -593,7 +593,7 @@ export const Slide5: React.FC = () => {
                 {/* Inner Content Area overlaid on scroll parchment */}
                 <div className="absolute -mt-3 top-[14%] bottom-[15%] sm:top-[17%] sm:bottom-[20%] left-[12%] right-[12%] sm:left-[13%] sm:right-[13%] flex flex-col px-1 items-center justify-center gap-0 xs:gap-0 sm:gap-0 text-center py-0 sm:py-1">
                   {/* Badge */}
-                  {(<span className="font-cinzel text-[8.5px] xs:text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.22em] font-semibold text-[#8b5a2b] mt-0 sm:mt-2">
+                  {isInvitation && (<span className="font-cinzel text-[8.5px] xs:text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.22em] font-semibold text-[#8b5a2b] mt-0 sm:mt-2">
                     {EVENTS[1].badge}
                   </span>)}
 

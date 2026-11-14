@@ -19,6 +19,20 @@ const RSVP_STORAGE_KEY = 'wedding_rsvp_id';
 const RSVP_DATA_STORAGE_KEY = 'wedding_rsvp_data';
 
 // ── Slide 7 ────────────────────────────────────────────────────────────────
+const checkIsInvitation = (): boolean => {
+  if (typeof window === 'undefined') return false;
+  const path = window.location.pathname.toLowerCase();
+  const hash = window.location.hash.toLowerCase();
+  const search = window.location.search.toLowerCase();
+  return (
+    path.includes('/invitation') ||
+    path.includes('invitation') ||
+    hash.includes('/invitation') ||
+    hash.includes('invitation') ||
+    search.includes('invitation')
+  );
+};
+
 const EVENTS_OPTIONS = [
   { id: 'event1', label: 'RASMO KA RANG,\nKHUSHIYON KE SANG!', date: "27th" },
   { id: 'event2', label: 'THE GREAT\nWEDDING GAME\nCARNIVAL!', date: "28th" },
@@ -31,6 +45,21 @@ const VENUE_PHONE_DISPLAY = '+91 99244 61853';
 export const Slide7: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [isInvitation, setIsInvitation] = useState(checkIsInvitation);
+
+  // Monitor URL changes
+  useEffect(() => {
+    const handleUrlChange = () => {
+      setIsInvitation(checkIsInvitation());
+    };
+
+    window.addEventListener('popstate', handleUrlChange);
+    window.addEventListener('hashchange', handleUrlChange);
+    return () => {
+      window.removeEventListener('popstate', handleUrlChange);
+      window.removeEventListener('hashchange', handleUrlChange);
+    };
+  }, []);
 
   // Identification & Mode
   const [existingId, setExistingId] = useState<string | null>(null);
@@ -174,17 +203,24 @@ export const Slide7: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) { setError('Please enter your name.'); return; }
+    if (isInvitation && attending && selectedEvents.length === 0) {
+      setError('Please select at least one celebration to join.');
+      return;
+    }
     setError('');
     setSubmitting(true);
 
     try {
       const cleanName = name.trim();
       const cleanPhone = phone.trim() ? phone.trim().slice(-10) : null;
+      const finalEvents = attending
+        ? (isInvitation ? selectedEvents : ['event2'])
+        : [];
       const payload = {
         name: cleanName,
         phone: cleanPhone,
         attending: attending ?? true,
-        events: attending ? selectedEvents : [],
+        events: finalEvents,
         guests: attending ? guests : 0,
       };
 
@@ -209,6 +245,7 @@ export const Slide7: React.FC = () => {
 
       if (data) {
         setExistingId(data.id);
+        setSelectedEvents(finalEvents);
         localStorage.setItem(RSVP_STORAGE_KEY, data.id);
         localStorage.setItem(RSVP_DATA_STORAGE_KEY, JSON.stringify(data));
       }
@@ -360,7 +397,7 @@ export const Slide7: React.FC = () => {
                       {attending && selectedEvents.length > 0 && (
                         <div className="border-b border-[#d6b08a]/30 pb-2">
                           <span className="block font-cinzel text-[#8b5a2b] uppercase tracking-wider text-[11px] mb-1">
-                            Events Joining
+                            {isInvitation ? 'Events Joining' : 'Event Joining'}
                           </span>
                           <div className="flex flex-wrap gap-1.5">
                             {selectedEvents.map(evId => {
@@ -443,8 +480,8 @@ export const Slide7: React.FC = () => {
                       </button>
                     </div>
 
-                    {/* Event checkboxes (only when attending) */}
-                    {attending === true && (
+                    {/* Event checkboxes (only when attending AND on invitation URL) */}
+                    {attending === true && isInvitation && (
                       <div className="space-y-2">
                         <p className="font-cinzel text-xs font-semibold text-[#6b1d2e] tracking-wider uppercase">
                           Which celebration(s) will you join?
