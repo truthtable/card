@@ -514,7 +514,7 @@ export const Slide5: React.FC = () => {
 
               {/* Right Column: Date 27 Display */}
               <div
-                className="w-[48%] md:w-[45%] flex flex-col items-start justify-center pl-6 xs:pl-3 sm:pl-8 md:pl-12 will-change-transform ms-10"
+                className="w-[48%] md:w-[45%] flex flex-col items-center justify-center pl-6 xs:pl-3 sm:pl-8 md:pl-12 will-change-transform ms-10"
                 style={{
                   opacity: Math.max(0.25, progress1),
                   transform: `translateX(${(28 * (1 - progress1)).toFixed(1)}px) scale(${(0.95 + 0.05 * progress1).toFixed(3)})`,
@@ -556,7 +556,7 @@ export const Slide5: React.FC = () => {
 
             {/* Left Column: Date 28 Display */}
             <div
-              className="w-[48%]  md:w-[45%] flex flex-col items-end justify-center md:pr-12 text-right will-change-transform"
+              className="w-[48%]  md:w-[45%] flex flex-col items-center justify-center md:pr-12 text-right will-change-transform"
               style={{
                 opacity: Math.max(0.25, progress2),
                 transform: `translateX(${(-28 * (1 - progress2)).toFixed(1)}px) scale(${(0.95 + 0.05 * progress2).toFixed(3)})`,
