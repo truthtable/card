@@ -113,10 +113,10 @@ export const Slide1: React.FC<Slide1Props> = ({ animate = true }) => {
           </div>
           {/* Invitation Line */}
           <p
-            className={`font-sans font-medium text-[11px] leading-tight sm:text-[13px] md:text-[14px] uppercase tracking-[0.2em] sm:tracking-[0.24em] text-[#6e2837] pt-4 sm:pt-6 drop-shadow-sm will-change-transform ${animate ? 'anim-text-invite' : 'opacity-0'
+            className={`font-sans font-medium text-[11px] leading-tight sm:text-[13px] md:text-[14px] uppercase -tracking-tight text-[#6e2837] pt-4 sm:pt-6 drop-shadow-sm will-change-transform ${animate ? 'anim-text-invite' : 'opacity-0'
               }`}
           >
-            INVITE YOU TO CELEBRATE THEIR NIKAH
+            INVITE YOU TO CELEBRATE THEIR WEDDING
           </p>
         </div>
       </div>

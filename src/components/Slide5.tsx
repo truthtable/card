@@ -29,7 +29,7 @@ const EVENTS: EventItem[] = [
   {
     id: 'event-1',
     badge: 'EVENT 1',
-    titleLines: ['RASMO KA RANG,', 'KHUSHIYON KE SANG!'],
+    titleLines: ['RASMO KE RANG,', 'KHUSHIYON KE SANG!'],
     subtitle: 'JOIN US AS WE CELEBRATE THIS SPECIAL OCCASION TOGETHER.',
     extraTitle: "",
     dayNumber: '27',
@@ -52,9 +52,9 @@ const EVENTS: EventItem[] = [
   {
     id: 'event-2',
     badge: 'EVENT 2',
-    titleLines: ['THE GREAT', 'WEDDING GAME', 'CARNIVAL!'],
+    titleLines: ['Reception'],
     subtitle: 'JOIN US AS WE CELEBRATE THIS SPECIAL OCCASION TOGETHER.',
-    extraTitle: "Reception",
+    extraTitle: "",
     dayNumber: '28',
     monthYear: 'NOVEMBER 2026',
     weekday: 'Saturday',
@@ -66,7 +66,7 @@ const EVENTS: EventItem[] = [
     location: 'Raj Farms & Stays',
     description: 'Join us as we celebrate this special occasion together. The Great Wedding Game Carnival & Reception for Taha & Zainab wedding.\n\nSchedule:\n• 10:00 AM — Games Carnival\n• 7:00 PM — Reception',
     schedule: [
-      { time: '10:00 AM', title: 'Games Carnival' },
+      // { time: '10:00 AM', title: 'Games Carnival' },
       { time: '7:00 PM', title: 'Reception' },
     ],
   },
@@ -514,7 +514,7 @@ export const Slide5: React.FC = () => {
 
               {/* Right Column: Date 27 Display */}
               <div
-                className="w-[48%] md:w-[45%] flex flex-col items-start justify-center pl-6 xs:pl-3 sm:pl-8 md:pl-12 will-change-transform"
+                className="w-[48%] md:w-[45%] flex flex-col items-start justify-center pl-6 xs:pl-3 sm:pl-8 md:pl-12 will-change-transform ms-10"
                 style={{
                   opacity: Math.max(0.25, progress1),
                   transform: `translateX(${(28 * (1 - progress1)).toFixed(1)}px) scale(${(0.95 + 0.05 * progress1).toFixed(3)})`,
@@ -556,7 +556,7 @@ export const Slide5: React.FC = () => {
 
             {/* Left Column: Date 28 Display */}
             <div
-              className="w-[48%] mr-10 md:w-[45%] flex flex-col items-end justify-center pr-1.5 xs:pr-3 sm:pr-8 md:pr-12 text-right will-change-transform"
+              className="w-[48%]  md:w-[45%] flex flex-col items-end justify-center md:pr-12 text-right will-change-transform"
               style={{
                 opacity: Math.max(0.25, progress2),
                 transform: `translateX(${(-28 * (1 - progress2)).toFixed(1)}px) scale(${(0.95 + 0.05 * progress2).toFixed(3)})`,
@@ -593,9 +593,9 @@ export const Slide5: React.FC = () => {
                 {/* Inner Content Area overlaid on scroll parchment */}
                 <div className="absolute -mt-3 top-[14%] bottom-[15%] sm:top-[17%] sm:bottom-[20%] left-[12%] right-[12%] sm:left-[13%] sm:right-[13%] flex flex-col px-1 items-center justify-center gap-0 xs:gap-0 sm:gap-0 text-center py-0 sm:py-1">
                   {/* Badge */}
-                  <span className="font-cinzel text-[8.5px] xs:text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.22em] font-semibold text-[#8b5a2b] mt-0 sm:mt-2">
+                  {(<span className="font-cinzel text-[8.5px] xs:text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.22em] font-semibold text-[#8b5a2b] mt-0 sm:mt-2">
                     {EVENTS[1].badge}
-                  </span>
+                  </span>)}
 
                   {/* Event Title */}
                   <div className="py-0 sm:py-0">

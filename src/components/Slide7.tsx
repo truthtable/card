@@ -676,7 +676,7 @@ export const Slide7: React.FC = () => {
               <div className="text-center space-y-1">
                 <p className="font-cinzel text-xs font-semibold text-[#6b1d2e] tracking-widest uppercase">Venue</p>
                 <p className="font-cormorant text-sm italic text-[#8b5a2b] leading-snug">
-                  The Heritage Royal Palace &amp; Gardens
+                  Raj Farms & Stays
                 </p>
               </div>
 

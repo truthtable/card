@@ -95,7 +95,7 @@ export const Slide8: React.FC = () => {
 
         {/* 6. 2 DAYS | 1 BIG CELEBRATION | UNLIMITED MEMORIES */}
         <p className="font-cinzel font-semibold text-[11px] xs:text-xs sm:text-sm md:text-[15px] text-[#8b5a2b] uppercase tracking-[0.16em] sm:tracking-[0.22em] max-w-xl mx-auto leading-relaxed mt-1.5 drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]">
-          2 DAYS | 1 BIG CELEBRATION | UNLIMITED MEMORIES
+          BIG CELEBRATION | UNLIMITED MEMORIES
         </p>
 
         {/* 7. Your presence is our biggest celebration! */}
