@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import { Calendar, CalendarPlus, MapPin, X, Check, ExternalLink, Download } from 'lucide-react';
 
 interface ScheduleEntry {
@@ -25,7 +25,7 @@ interface EventItem {
   schedule: ScheduleEntry[];
 }
 
-const EVENTS: EventItem[] = [
+const getEvents = (isInvitation: boolean): EventItem[] => [
   {
     id: 'event-1',
     badge: 'EVENT 1',
@@ -59,14 +59,16 @@ const EVENTS: EventItem[] = [
     monthYear: 'NOVEMBER 2026',
     weekday: 'Saturday',
     dateDisplay: '28 NOV 2026',
-    startDateIso: '2026-11-28T10:00:00',
+    startDateIso: isInvitation ? '2026-11-28T10:00:00' : '2026-11-28T19:00:00',
     endDateIso: '2026-11-28T23:00:00',
-    icsStart: '20261128T100000',
+    icsStart: isInvitation ? '20261128T100000' : '20261128T190000',
     icsEnd: '20261128T230000',
     location: 'Raj Farms & Stays',
-    description: 'Join us as we celebrate this special occasion together. The Great Wedding Game Carnival & Reception for Taha & Zainab wedding.\n\nSchedule:\n• 10:00 AM — Games Carnival\n• 7:00 PM — Reception',
+    description: isInvitation
+      ? 'Join us as we celebrate this special occasion together. The Great Wedding Game Carnival & Reception for Taha & Zainab wedding.\n\nSchedule:\n• 10:00 AM — Games Carnival\n• 7:00 PM — Reception'
+      : 'Join us as we celebrate this special occasion together. Reception for Taha & Zainab wedding.\n\nSchedule:\n• 7:00 PM — Reception',
     schedule: [
-      // { time: '10:00 AM', title: 'Games Carnival' },
+      ...(isInvitation ? [{ time: '10:00 AM', title: 'Games Carnival' }] : []),
       { time: '7:00 PM', title: 'Reception' },
     ],
   },
@@ -88,6 +90,7 @@ const checkIsInvitation = (): boolean => {
 
 export const Slide5: React.FC = () => {
   const [isInvitation, setIsInvitation] = useState<boolean>(checkIsInvitation);
+  const events = useMemo(() => getEvents(isInvitation), [isInvitation]);
   const sectionRef = useRef<HTMLElement | null>(null);
   const event1Ref = useRef<HTMLDivElement | null>(null);
   const event2Ref = useRef<HTMLDivElement | null>(null);
@@ -418,12 +421,12 @@ export const Slide5: React.FC = () => {
                   <div className="absolute top-[15%] bottom-[15%] sm:top-[17%] sm:bottom-[20%] left-[12%] right-[12%] sm:left-[13%] sm:right-[13%] flex flex-col items-center justify-center gap-0.5 xs:gap-1 sm:gap-0 sm:justify-evenly text-center py-0 sm:py-1">
                     {/* Badge */}
                     <span className="font-cinzel text-[8.5px] xs:text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.22em] font-semibold text-[#8b5a2b] mt-0 sm:mt-2">
-                      {EVENTS[0].badge}
+                      {events[0].badge}
                     </span>
 
                     {/* Event Title */}
                     <div className="py-0 sm:py-0.5">
-                      {EVENTS[0].titleLines.map((line, idx) => (
+                      {events[0].titleLines.map((line, idx) => (
                         <h3
                           key={idx}
                           className="font-cinzel text-[9px] xs:text-[12.5px] sm:text-base md:text-[20px] lg:text-[22px] font-bold text-[#621626] leading-tight tracking-wide drop-shadow-sm uppercase"
@@ -435,7 +438,7 @@ export const Slide5: React.FC = () => {
 
                     {/* Subtitle Message */}
                     <p className="italic text-[6px] xs:text-[9.5px] sm:text-xs text-[#7a4855] tracking-wider leading-tight max-w-[240px] line-clamp-2 sm:line-clamp-none font-medium uppercase sm:normal-case px-0.5 my-0">
-                      {EVENTS[0].subtitle}
+                      {events[0].subtitle}
                     </p>
 
                     {/* Ornamental Diamond Divider */}
@@ -449,7 +452,7 @@ export const Slide5: React.FC = () => {
                     <div className="flex items-center gap-1 text-[#5e1927]">
                       <Calendar className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-[#9a6b32] shrink-0" />
                       <span className="font-cinzel text-[8.5px] xs:text-[10px] sm:text-xs md:text-sm font-semibold tracking-wider whitespace-nowrap">
-                        {EVENTS[0].dateDisplay}
+                        {events[0].dateDisplay}
                       </span>
                     </div>
 
@@ -457,7 +460,7 @@ export const Slide5: React.FC = () => {
                     <div className="flex items-center justify-center gap-1 text-[#8b5a2b] opacity-90 text-[7.5px] xs:text-[9px] sm:text-[10px] px-1 mb-0 sm:mb-4">
                       <MapPin className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#9a6b32] shrink-0" />
                       <span className="font-sans text-center max-w-[130px] xs:max-w-[145px] sm:max-w-[180px] leading-tight">
-                        {EVENTS[0].location}
+                        {events[0].location}
                       </span>
                     </div>
                   </div>
@@ -482,7 +485,7 @@ export const Slide5: React.FC = () => {
 
                   {/* Itinerary List */}
                   <div className="space-y-1 sm:space-y-2">
-                    {EVENTS[0].schedule.map((entry, idx) => (
+                    {events[0].schedule.map((entry, idx) => (
                       <div
                         key={idx}
                         className="flex items-center justify-between gap-1 xs:gap-2 px-2 xs:px-2.5 sm:px-3 py-1 xs:py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-[#fffefc]/85 hover:bg-[#fffdf8] border border-[#dfcaab]/70 shadow-[0_1px_3px_rgba(100,50,20,0.04)] transition-colors"
@@ -503,7 +506,7 @@ export const Slide5: React.FC = () => {
                 {/* Add To Calendar Button */}
                 <div className="w-full max-w-[270px] xs:max-w-[310px] sm:max-w-[360px] md:max-w-[400px] lg:max-w-[430px] flex justify-center mt-2.5 sm:mt-3.5 mb-0.5 sm:mb-1">
                   <button
-                    onClick={() => setActiveEvent(EVENTS[0])}
+                    onClick={() => setActiveEvent(events[0])}
                     className="group relative border border-[#cca66b] bg-gradient-to-b from-[#fffefc] to-[#f7eedf] text-[#621626] hover:bg-[#fff7ea] hover:border-[#8b233a] hover:text-[#450915] shadow-[0_2px_8px_rgba(180,130,50,0.18)] rounded-full px-3.5 xs:px-4 sm:px-5 md:px-6 py-1.5 sm:py-2 flex items-center justify-center gap-1.5 sm:gap-2 text-[8px] xs:text-[9.5px] sm:text-[11px] md:text-xs font-cinzel font-bold tracking-[0.14em] uppercase transition-all duration-200 active:scale-95 cursor-pointer touch-manipulation"
                   >
                     <CalendarPlus className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#946124] group-hover:scale-110 transition-transform shrink-0" />
@@ -521,13 +524,13 @@ export const Slide5: React.FC = () => {
                 }}
               >
                 <span className="font-cinzel text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-[100px] font-normal text-[#ad8248] tracking-tight leading-none drop-shadow-[0_2px_4px_rgba(173,130,72,0.18)]">
-                  {EVENTS[0].dayNumber}
+                  {events[0].dayNumber}
                 </span>
                 <span className="font-cinzel text-[9px] xs:text-[10.5px] sm:text-xs md:text-sm tracking-[0.22em] font-medium text-[#ad8248] uppercase mt-1 sm:mt-2">
-                  {EVENTS[0].monthYear}
+                  {events[0].monthYear}
                 </span>
                 <span className="font-script text-xl xs:text-2xl sm:text-3xl md:text-4xl text-[#bd9254] mt-0.5">
-                  {EVENTS[0].weekday}
+                  {events[0].weekday}
                 </span>
               </div>
             </div>
@@ -563,13 +566,13 @@ export const Slide5: React.FC = () => {
               }}
             >
               <span className="font-cinzel text-5xl xs:text-6xl sm:text-7xl md:text-8xl lg:text-[100px] font-normal text-[#ad8248] tracking-tight leading-none drop-shadow-[0_2px_4px_rgba(173,130,72,0.18)]">
-                {EVENTS[1].dayNumber}
+                {events[1].dayNumber}
               </span>
               <span className="font-cinzel text-[9px] xs:text-[10.5px] sm:text-xs md:text-sm tracking-[0.22em] font-medium text-[#ad8248] uppercase mt-1 sm:mt-2">
-                {EVENTS[1].monthYear}
+                {events[1].monthYear}
               </span>
               <span className="font-script text-xl xs:text-2xl sm:text-3xl md:text-4xl text-[#bd9254] mt-0.5">
-                {EVENTS[1].weekday}
+                {events[1].weekday}
               </span>
             </div>
 
@@ -594,12 +597,12 @@ export const Slide5: React.FC = () => {
                 <div className="absolute -mt-3 top-[14%] bottom-[15%] sm:top-[17%] sm:bottom-[20%] left-[12%] right-[12%] sm:left-[13%] sm:right-[13%] flex flex-col px-1 items-center justify-center gap-0 xs:gap-0 sm:gap-0 text-center py-0 sm:py-1">
                   {/* Badge */}
                   {isInvitation && (<span className="font-cinzel text-[8.5px] xs:text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.22em] font-semibold text-[#8b5a2b] mt-0 sm:mt-2">
-                    {EVENTS[1].badge}
+                    {events[1].badge}
                   </span>)}
 
                   {/* Event Title */}
                   <div className="py-0 sm:py-0">
-                    {EVENTS[1].titleLines.map((line, idx) => (
+                    {events[1].titleLines.map((line, idx) => (
                       <h3
                         key={idx}
                         className="font-cinzel text-[10px] xs:text-[11.5px] sm:text-base md:text-[19px] lg:text-[21px] font-bold text-[#621626] leading-tight tracking-wide drop-shadow-sm uppercase"
@@ -609,13 +612,13 @@ export const Slide5: React.FC = () => {
                     ))}
                   </div>
 
-                  {EVENTS[1].extraTitle && (
-                    <span className="font-serif text-[9.5px] sm:text-sm text-[#621626] font-semibold">{EVENTS[1].extraTitle}</span>
+                  {events[1].extraTitle && (
+                    <span className="font-serif text-[9.5px] sm:text-sm text-[#621626] font-semibold">{events[1].extraTitle}</span>
                   )}
 
                   {/* Subtitle Message */}
                   <p className="italic text-[6px] xs:text-[9.5px] sm:text-xs text-[#7a4855] leading-tight mx-2 max-w-[240px] line-clamp-2 sm:line-clamp-none font-medium uppercase sm:normal-case px-0.5 my-0">
-                    {EVENTS[1].subtitle}
+                    {events[1].subtitle}
                   </p>
 
                   {/* Ornamental Diamond Divider */}
@@ -629,7 +632,7 @@ export const Slide5: React.FC = () => {
                   <div className="flex items-center gap-1 text-[#5e1927]">
                     <Calendar className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-[#9a6b32] shrink-0" />
                     <span className="font-cinzel text-[8.5px] xs:text-[10px] sm:text-xs md:text-sm font-semibold tracking-wider whitespace-nowrap">
-                      {EVENTS[1].dateDisplay}
+                      {events[1].dateDisplay}
                     </span>
                   </div>
 
@@ -637,7 +640,7 @@ export const Slide5: React.FC = () => {
                   <div className="flex items-center justify-center gap-1 text-[#8b5a2b] opacity-90 text-[7.5px] xs:text-[9px] sm:text-[10px] px-1 mb-0 sm:mb-4">
                     <MapPin className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#9a6b32] shrink-0" />
                     <span className="font-sans text-center max-w-[130px] xs:max-w-[145px] sm:max-w-[180px] leading-tight">
-                      {EVENTS[1].location}
+                      {events[1].location}
                     </span>
                   </div>
                 </div>
@@ -662,7 +665,7 @@ export const Slide5: React.FC = () => {
 
                 {/* Itinerary List */}
                 <div className="space-y-1 sm:space-y-2">
-                  {EVENTS[1].schedule.map((entry, idx) => (
+                  {events[1].schedule.map((entry, idx) => (
                     <div
                       key={idx}
                       className="flex items-center justify-between gap-1 xs:gap-2 px-2 xs:px-2.5 sm:px-3 py-1 xs:py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-[#fffefc]/85 hover:bg-[#fffdf8] border border-[#dfcaab]/70 shadow-[0_1px_3px_rgba(100,50,20,0.04)] transition-colors"
@@ -685,7 +688,7 @@ export const Slide5: React.FC = () => {
               {/* Add To Calendar Button */}
               <div className="w-full max-w-[270px] xs:max-w-[310px] sm:max-w-[360px] md:max-w-[400px] lg:max-w-[430px] flex justify-center mt-2.5 sm:mt-3.5 mb-0.5 sm:mb-1">
                 <button
-                  onClick={() => setActiveEvent(EVENTS[1])}
+                  onClick={() => setActiveEvent(events[1])}
                   className="group relative border border-[#cca66b] bg-gradient-to-b from-[#fffefc] to-[#f7eedf] text-[#621626] hover:bg-[#fff7ea] hover:border-[#8b233a] hover:text-[#450915] shadow-[0_2px_8px_rgba(180,130,50,0.18)] rounded-full px-3.5 xs:px-4 sm:px-5 md:px-6 py-1.5 sm:py-2 flex items-center justify-center gap-1.5 sm:gap-2 text-[8px] xs:text-[9.5px] sm:text-[11px] md:text-xs font-cinzel font-bold tracking-[0.14em] uppercase transition-all duration-200 active:scale-95 cursor-pointer touch-manipulation"
                 >
                   <CalendarPlus className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#946124] group-hover:scale-110 transition-transform shrink-0" />
